@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.gmo.buckwise.database.BudgetsDAO;
+import com.gmo.buckwise.database.ExpensesDAO;
 import com.gmo.buckwise.model.Budget;
 import com.gmo.buckwise.util.Util;
 
@@ -82,8 +83,7 @@ public class BudgetsImpl {
             }
         }
 
-        Util util = new Util();
-        budget.setDateCreated(util.getCurrentDateTime());
+        budget.setDateCreated(Util.getCurrentDateTime());
         budget.setCategories(existingCategories);
         budget.setInitialAmounts(existingAmountsToStartWith);
         budget.setAmountsSpent(amountsSpent);
@@ -167,20 +167,13 @@ public class BudgetsImpl {
         List<String> amountsSpent = (new LinkedList<>(Arrays.asList(budget.getAmountsSpent().split(","))));
         int targetIndex = categoryList.indexOf(categoryToDelete);
 
-        //Log.d("---Initial", amountsSpent.toString());
-
         categoryList.remove(categoryToDelete);
         initialAmountsList.remove(targetIndex);
         amountsSpent.remove(targetIndex);
 
-        //Log.d("---After", amountsSpent.toString());
-
         String categoryStr = TextUtils.join(",", categoryList);
         String initialAmountsStr = TextUtils.join(",", initialAmountsList);
         String amountsSpentStr = TextUtils.join(",", amountsSpent);
-
-        //Log.d("---Str", amountsSpentStr);
-
 
         budget.setCategories(categoryStr);
         budget.setInitialAmounts(initialAmountsStr);
@@ -192,17 +185,20 @@ public class BudgetsImpl {
         Date latestDateForComparison = Util.stringToDate(budget.getDateCreated());
 
         if(currentDateForComparison.after(latestDateForComparison)){
-            //Log.d("---create", "yeah");
             budget.setDateCreated(Util.getCurrentDateTime());
             budgetsDao.createBudgetItem(budget);
         }
         else {
-            //Log.d("---Update", "yeah");
             budgetsDao.updateBudgetAllLists(budget);
         }
 
         return budget;
 
+    }
+
+    public void createExpenseFromBudget(Budget budget){
+        ExpensesImpl expensesImpl = new ExpensesImpl(context);
+        ExpensesDAO expensesDAO = new ExpensesDAO(context);
     }
 
 }
