@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="24dp"
+    android:paddingLeft="24dp">
+
+    <TextView
+        android:id="@+id/inputDialog_edit_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="24dp"
+        android:text="Add Income"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/inputDialog_edit_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Amount"
+        android:textSize="15sp"
+        android:layout_below="@+id/inputDialog_edit_title"/>
+    <EditText
+        android:id="@+id/inputDialog_edit_inputAmount"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inputDialog_edit_message"
+        android:textSize="20sp"
+        android:backgroundTint="@color/dialogAccent"
+        android:inputType="numberDecimal|numberSigned"
+        android:layout_marginRight="24dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_below="@id/inputDialog_edit_inputAmount"
+        android:paddingRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="right"
+        android:layout_marginTop="24dp">
+        <Button
+            android:id="@+id/inputDialog_edit_buttonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Cancel"
+            android:textColor="@color/dialogAccent"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_centerVertical="true"/>
+        <Button
+            android:id="@+id/inputDialog_edit_buttonAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Ok"
+            android:textColor="@color/dialogAccent"
+            android:layout_toRightOf="@id/inputDialog_edit_buttonCancel"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

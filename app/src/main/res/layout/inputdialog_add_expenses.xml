@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="24dp"
+    android:paddingLeft="24dp">
+
+    <TextView
+        android:id="@+id/expenseInputDialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="24dp"
+        android:text="Create Expense"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/expenseInputDialog_category_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:textSize="15sp"
+        android:layout_below="@+id/expenseInputDialog_title"/>
+    <EditText
+        android:id="@+id/expenseInputDialog_inputCategory"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expenseInputDialog_category_title"
+        android:textSize="20sp"
+        android:inputType="text"
+        android:backgroundTint="@color/dialogAccent"
+        android:layout_marginRight="24dp"/>
+    <TextView
+        android:id="@+id/expenseInputDialog_amountTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Amount"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/expenseInputDialog_inputCategory"
+        android:textSize="15sp"/>
+    <EditText
+        android:id="@+id/expenseInputDialog_inputAmount"
+        android:layout_width="fill_parent"
+        android:backgroundTint="@color/dialogAccent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expenseInputDialog_amountTitle"
+        android:textSize="20sp"
+        android:inputType="numberDecimal|numberSigned"
+        android:layout_marginRight="24dp"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_below="@+id/expenseInputDialog_inputAmount"
+        android:paddingRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="right"
+        android:layout_marginTop="24dp">
+        <Button
+            android:id="@+id/expenseInputDialog_buttonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Cancel"
+            android:textColor="@color/dialogAccent"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_centerVertical="true"/>
+        <Button
+            android:id="@+id/expenseInputDialog_buttonAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Ok"
+            android:textColor="@color/dialogAccent"
+            android:layout_toRightOf="@id/expenseInputDialog_buttonCancel"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

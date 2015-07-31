@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp">
+    <ImageView
+        android:id="@+id/expenseList_iconArrow"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:background="@null"
+        android:tint="@color/accent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/ic_arrow_right_bold_circle_outline_grey600_24dp"/>
+    <TextView
+        android:id="@+id/expenseList_itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/expenseList_iconArrow"
+        android:textSize="20sp"
+        android:textColor="@color/textDarker"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="10dp"
+        android:text="Rent"/>
+    <TextView
+        android:id="@+id/expenseList_itemAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/textDarker"
+        android:layout_centerInParent="true"
+        android:text="$1,000.00"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="60dp"/>
+    <ImageView
+        android:id="@+id/expenseList_iconEdit"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@null"
+        android:tint="@color/textDarker"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_dots_vertical_grey600_24dp"/>
+
+
+</RelativeLayout>

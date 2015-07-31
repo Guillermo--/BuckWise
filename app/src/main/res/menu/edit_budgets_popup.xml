@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Expenses">
+
+    <item
+        android:id="@+id/budget_popupMenu_preview"
+        android:title="Log Expense"/>
+    <item
+        android:id="@+id/budget_popupMenu_edit"
+        android:title="Edit Budget"/>
+    <item
+        android:id="@+id/budget_popupMenu_undo"
+        android:title="Undo"/>
+    <item
+        android:id="@+id/budget_popupMenu_delete"
+        android:title="Delete"/>
+
+
+</menu>

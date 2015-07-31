@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="24dp"
+    android:paddingLeft="24dp">
+
+    <TextView
+        android:id="@+id/budgetInputDialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="24dp"
+        android:text="Add Budget"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/budgetInputDialog_category_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:textSize="15sp"
+        android:layout_below="@+id/budgetInputDialog_title"/>
+    <EditText
+        android:id="@+id/budgetInputDialog_inputCategory"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/budgetInputDialog_category_title"
+        android:textSize="20sp"
+        android:inputType="text"
+        android:backgroundTint="@color/dialogAccent"
+        android:layout_marginRight="24dp"/>
+    <TextView
+        android:id="@+id/budgetInputDialog_amountTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Amount to Start With"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/budgetInputDialog_inputCategory"
+        android:textSize="15sp"/>
+    <EditText
+        android:id="@+id/budgetInputDialog_inputAmount"
+        android:layout_width="fill_parent"
+        android:backgroundTint="@color/dialogAccent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/budgetInputDialog_amountTitle"
+        android:textSize="20sp"
+        android:inputType="numberDecimal|numberSigned"
+        android:layout_marginRight="24dp"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_below="@+id/budgetInputDialog_inputAmount"
+        android:paddingRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="right"
+        android:layout_marginTop="24dp">
+        <Button
+            android:id="@+id/budgetInputDialog_buttonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Cancel"
+            android:textColor="@color/dialogAccent"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_centerVertical="true"/>
+        <Button
+            android:id="@+id/budgetInputDialog_buttonAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Add"
+            android:textColor="@color/dialogAccent"
+            android:layout_toRightOf="@id/budgetInputDialog_buttonCancel"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

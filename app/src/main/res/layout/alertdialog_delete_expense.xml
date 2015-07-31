@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="24dp"
+    android:paddingLeft="24dp">
+
+    <TextView
+        android:id="@+id/alertDialog_delete_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="24dp"
+        android:text="Delete Expense"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/alertDialog_delete_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are you sure you want to delete?"
+        android:textSize="18sp"
+        android:layout_below="@+id/alertDialog_delete_title"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_below="@id/alertDialog_delete_message"
+        android:paddingRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="right"
+        android:layout_marginTop="24dp">
+        <Button
+            android:id="@+id/alertDialog_delete_cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Cancel"
+            android:textColor="@color/dialogAccent"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_centerVertical="true"/>
+        <Button
+            android:id="@+id/alertDialog_delete_okButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Ok"
+            android:textColor="@color/dialogAccent"
+            android:layout_toRightOf="@id/alertDialog_delete_cancelButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
