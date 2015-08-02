@@ -27,8 +27,10 @@ import android.widget.Toast;
 
 import com.gmo.buckwise.R;
 import com.gmo.buckwise.implementation.BudgetsImpl;
+import com.gmo.buckwise.implementation.ExpensesImpl;
 import com.gmo.buckwise.model.Budget;
 import com.gmo.buckwise.model.BudgetListArrayAdapter;
+import com.gmo.buckwise.model.Expense;
 import com.gmo.buckwise.model.NavigationDrawerArrayAdapter;
 import com.gmo.buckwise.model.NavigationDrawerItemClickListener;
 import com.gmo.buckwise.util.Util;
@@ -162,7 +164,13 @@ public class Budgets extends ActionBarActivity {
                                 adapter.refreshListData(getMapForBudgetListAdapter(budget.getCategories(), budget.getAmountsSpent(), budget.getInitialAmounts()));
                                 ((BaseAdapter) budgetList.getAdapter()).notifyDataSetChanged();
                                 setUpProgressBar();
+
+                                ExpensesImpl expensesImpl = new ExpensesImpl(context);
+                                Expense latestExpense = expensesImpl.getLatestExpenses();
+                                latestExpense.setDateCreated(Util.getCurrentDateTime());
+                                expensesImpl.addCategoryAndAmount(latestExpense, inputCategoryStr, inputAmountStr);
                             }
+
                             alertDialog.dismiss();
                         }
                     }

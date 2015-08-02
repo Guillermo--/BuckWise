@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.gmo.buckwise.R;
 import com.gmo.buckwise.activity.Budgets;
 import com.gmo.buckwise.implementation.BudgetsImpl;
+import com.gmo.buckwise.implementation.ExpensesImpl;
 import com.gmo.buckwise.util.Util;
 
 import org.w3c.dom.Text;
@@ -138,8 +139,7 @@ public class BudgetListArrayAdapter extends BaseAdapter{
                 refreshListData(budgetsActivity.getMapForBudgetListAdapter(budget.getCategories(), budget.getAmountsSpent(), budget.getInitialAmounts()));
                 ((BaseAdapter)Budgets.budgetList.getAdapter()).notifyDataSetChanged();
                 Budgets.progressBarAmountAvailable.setText(Util.doubleToCurrency(budget.getAmountAvailable()));
-                Budgets.animateProgressBar(Budgets.mProgress.getProgress()-200, (int)budget.getAmountAvailable());
-                //Budgets.mProgress.setProgress((int) budget.getAmountAvailable());
+                Budgets.animateProgressBar(Budgets.mProgress.getProgress() - 200, (int) budget.getAmountAvailable());
 
                 alertDialog.dismiss();
             }

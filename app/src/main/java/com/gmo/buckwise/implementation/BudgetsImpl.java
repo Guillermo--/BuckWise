@@ -196,9 +196,5 @@ public class BudgetsImpl {
 
     }
 
-    public void createExpenseFromBudget(Budget budget){
-        ExpensesImpl expensesImpl = new ExpensesImpl(context);
-        ExpensesDAO expensesDAO = new ExpensesDAO(context);
-    }
 
 }
