@@ -64,7 +64,6 @@ public class ExpensesImpl {
         String newAmountsString = expense.getExpenseAmounts();
 
         if (categoriesAndAmounts.containsKey(category)) {
-            Log.d("--Action: ", "Update");
             existingAmount = categoriesAndAmounts.get(category);
             categoriesAndAmounts.put(category, Double.parseDouble(newAmount));
 
@@ -103,8 +102,8 @@ public class ExpensesImpl {
         ExpensesImpl expensesImpl = new ExpensesImpl(context);
         Expense expense = expensesImpl.getLatestExpenses();
         Map<String, Double> categoriesAndAmounts = expense.getExpenseCategoryAndAmount();
-        String newCategoriesString = expense.getExpenseCategories();
-        String newAmountsString = expense.getExpenseAmounts();
+        String newCategoriesString;
+        String newAmountsString;
         double newTotalExpenses = expense.getExpenseTotal();
         List<String> amountsList = new LinkedList<String>(Arrays.asList(expense.getExpenseAmounts().split(",")));
         List<String> categoriesList = new LinkedList<String>(Arrays.asList(expense.getExpenseCategories().split(",")));
@@ -116,7 +115,6 @@ public class ExpensesImpl {
         amountsList.remove(index);
         newAmountsString = TextUtils.join(",", amountsList);
         newCategoriesString = TextUtils.join(",", categoriesList);
-
 
         String datetime = Util.getCurrentDateTime();
         expense.setExpenseTotal(newTotalExpenses);
@@ -178,8 +176,8 @@ public class ExpensesImpl {
         expense.setExpenseAmount(newAmountsString);
         expense.setDateCreated(datetime);
 
-        OverviewDAO overviewDAO = new OverviewDAO(Expenses.context);
-        ExpensesDAO expensesDAO = new ExpensesDAO(Expenses.context);
+        OverviewDAO overviewDAO = new OverviewDAO(context);
+        ExpensesDAO expensesDAO = new ExpensesDAO(context);
         expensesDAO.addOrUpdateExpense(expense);
         overviewDAO.updateNetIncome(getTotalExpensesAmount());
 

@@ -185,10 +185,12 @@ public class BudgetsImpl {
         Date latestDateForComparison = Util.stringToDate(budget.getDateCreated());
 
         if(currentDateForComparison.after(latestDateForComparison)){
+            Log.d("---create", "create");
             budget.setDateCreated(Util.getCurrentDateTime());
             budgetsDao.createBudgetItem(budget);
         }
         else {
+            Log.d("---update", "update");
             budgetsDao.updateBudgetAllLists(budget);
         }
 

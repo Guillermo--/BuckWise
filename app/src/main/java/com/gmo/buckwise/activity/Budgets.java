@@ -106,12 +106,12 @@ public class Budgets extends ActionBarActivity {
         Drawable drawable = res.getDrawable(R.drawable.progressbar_background);
         mProgress.setMax((int) budget.getAmountStartedWith());
         //mProgress.setProgress((int) budget.getAmountAvailable());
-        animateProgressBar((int)budget.getAmountStartedWith(), (int) budget.getAmountAvailable());
+        animateProgressBar((int) budget.getAmountStartedWith(), (int) budget.getAmountAvailable());
         mProgress.setProgressDrawable(drawable);
     }
 
     public static void animateProgressBar(int initialAmount, int amountAvailable) {
-        ObjectAnimator animation = ObjectAnimator.ofInt(mProgress, "progress", initialAmount+200, amountAvailable);
+        ObjectAnimator animation = ObjectAnimator.ofInt(mProgress, "progress", initialAmount + 200, amountAvailable);
         animation.setDuration(2000);
         animation.setInterpolator(new LinearInterpolator());
         animation.start();
@@ -168,7 +168,7 @@ public class Budgets extends ActionBarActivity {
                                 ExpensesImpl expensesImpl = new ExpensesImpl(context);
                                 Expense latestExpense = expensesImpl.getLatestExpenses();
                                 latestExpense.setDateCreated(Util.getCurrentDateTime());
-                                expensesImpl.addCategoryAndAmount(latestExpense, inputCategoryStr, inputAmountStr);
+                                expensesImpl.addCategoryAndAmount(latestExpense, inputCategoryStr, "0.00");
                             }
 
                             alertDialog.dismiss();
@@ -215,7 +215,8 @@ public class Budgets extends ActionBarActivity {
         List<String> amountsSpentList = Arrays.asList(amountsSpent.split(","));
         List<String> initialAmountAvailableList = Arrays.asList(initialAmountsAvailable.split(","));
         Map<String, Pair<String, String>> mapOfListValues = new HashMap<>();
-        if (categoriesList.size() > 0) {
+
+        if (!categoriesList.contains("")) {
             for (int i = 0; i < categoriesList.size(); i++) {
                 String initialAmount = initialAmountAvailableList.get(i);
                 String amountSpent = amountsSpentList.get(i);
@@ -227,6 +228,7 @@ public class Budgets extends ActionBarActivity {
     }
 
     private String calculateActualAmountAvailable(String initialAmount, String amountSpent){
+
         double result = Double.valueOf(initialAmount) - Double.valueOf(amountSpent);
         return String.valueOf(result);
     }
@@ -251,6 +253,13 @@ public class Budgets extends ActionBarActivity {
                         mDrawerLayout.openDrawer(Gravity.LEFT);
                     }
                 });
+    }
+
+    private void createExpenseFromBudget(String inputCategory, String inputAmount){
+        ExpensesImpl expensesImpl = new ExpensesImpl(context);
+        Expense latestExpense = expensesImpl.getLatestExpenses();
+        latestExpense.setDateCreated(Util.getCurrentDateTime());
+        expensesImpl.addCategoryAndAmount(latestExpense, inputCategory, inputAmount);
     }
 
     public Budget getBudget(){

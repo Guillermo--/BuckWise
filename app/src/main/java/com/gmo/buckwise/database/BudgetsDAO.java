@@ -183,5 +183,6 @@ public class BudgetsDAO {
         updateValues.put(MySQLiteHelper.COLUMN_BUDGET_INITIAL_AMOUNT, budget.getInitialAmounts());
         updateValues.put(MySQLiteHelper.COLUMN_BUDGET_AMOUNT_SPENT, budget.getAmountsSpent());
         int r = database.update("budgets", updateValues, strFilter, null);
+        Log.d("---Deleted?", String.valueOf(r));
     }
 }

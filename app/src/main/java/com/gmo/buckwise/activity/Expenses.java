@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -178,12 +179,12 @@ public class Expenses extends AppCompatActivity {
     }
 
     private void handleAddExpenseButton(){
-        addExpenseButton.setOnClickListener(new View.OnClickListener(){
+        addExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
                 final View inputDialog = layoutInflater.inflate(R.layout.inputdialog_add_expenses, null);
-                ((TextView)inputDialog.findViewById(R.id.expenseInputDialog_title)).setTypeface(util.typefaceRobotoMedium);
+                ((TextView) inputDialog.findViewById(R.id.expenseInputDialog_title)).setTypeface(util.typefaceRobotoMedium);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                 alertDialogBuilder.setView(inputDialog);
 
@@ -204,6 +205,7 @@ public class Expenses extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         ExpensesImpl expenseImpl = new ExpensesImpl(context);
+                        getExpenseData();
                         expense = expenseImpl.addCategoryAndAmount(expense, inputCategory.getText().toString(), inputAmount.getText().toString());
                         alertDialog.dismiss();
                         handleHelperMessage();
@@ -320,4 +322,17 @@ public class Expenses extends AppCompatActivity {
         return colors;
     }
 
+//    public void setExpense(Expense expense){
+//        getExpenseData();
+//        //Log.d("---check", this.expense.getExpenseCategories().toString());
+//
+//        this.expense.setDateCreated(expense.getDateCreated());
+//        this.expense.setExpenseAmount(expense.getExpenseAmounts());
+//        this.expense.setExpenseCategory(expense.getExpenseCategories());
+//        this.expense.setExpenseTotal(expense.getExpenseTotal());
+//    }
+
+    public Expense getExpense(){
+        return expense;
+    }
 }

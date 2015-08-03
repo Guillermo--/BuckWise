@@ -123,10 +123,12 @@ public class ExpenseListArrayAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 ExpensesImpl expenseImpl = new ExpensesImpl(context);
+                Expenses expenseActivity = new Expenses();
                 Expense updatedExpense = expenseImpl.deleteExpense(rowName);
                 refreshListData(updatedExpense.getExpenseCategoryAndAmount());
                 ((BaseAdapter)Expenses.expensesList.getAdapter()).notifyDataSetChanged();
                 Expenses.expensesTotalAmount.setText(Util.doubleToCurrency(updatedExpense.getExpenseTotal()));
+
                 alertDialog.dismiss();
             }
         });
