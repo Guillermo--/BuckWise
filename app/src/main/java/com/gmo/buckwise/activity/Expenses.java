@@ -322,15 +322,6 @@ public class Expenses extends AppCompatActivity {
         return colors;
     }
 
-//    public void setExpense(Expense expense){
-//        getExpenseData();
-//        //Log.d("---check", this.expense.getExpenseCategories().toString());
-//
-//        this.expense.setDateCreated(expense.getDateCreated());
-//        this.expense.setExpenseAmount(expense.getExpenseAmounts());
-//        this.expense.setExpenseCategory(expense.getExpenseCategories());
-//        this.expense.setExpenseTotal(expense.getExpenseTotal());
-//    }
 
     public Expense getExpense(){
         return expense;

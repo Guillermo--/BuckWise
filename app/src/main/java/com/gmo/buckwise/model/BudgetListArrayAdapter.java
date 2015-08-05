@@ -141,6 +141,12 @@ public class BudgetListArrayAdapter extends BaseAdapter{
                 Budgets.progressBarAmountAvailable.setText(Util.doubleToCurrency(budget.getAmountAvailable()));
                 Budgets.animateProgressBar(Budgets.mProgress.getProgress() - 200, (int) budget.getAmountAvailable());
 
+                //reflect changes on Expenses activity
+                ExpensesImpl expensesImpl = new ExpensesImpl(context);
+                Expense latestExpense = expensesImpl.getLatestExpenses();
+                expensesImpl.addCategoryAndAmount(latestExpense, rowName, input.getText().toString());
+
+
                 alertDialog.dismiss();
             }
         });
@@ -185,7 +191,6 @@ public class BudgetListArrayAdapter extends BaseAdapter{
                 Budgets.mProgress.setMax((int) budget.getAmountStartedWith());
                 Budgets.progressBarAmountAvailable.setText(Util.doubleToCurrency(budget.getAmountAvailable()));
                 Budgets.animateProgressBar((int)budget.getAmountStartedWith()-200, (int)budget.getAmountAvailable());
-                //Budgets.mProgress.setProgress((int) budget.getAmountAvailable());
                 alertDialog.dismiss();
             }
         });

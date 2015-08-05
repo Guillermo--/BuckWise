@@ -28,13 +28,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_EXPENSE_CATEGORY = "expense_categories";
     public static final String COLUMN_EXPENSE_AVERAGE = "expense_average";
     public static final String COLUMN_EXPENSE_LAST_MONTH = "expense_last_month";
-    //id, date
 
     public static final String TABLE_BUDGETS = "budgets";
     public static final String COLUMN_BUDGET_CATEGORY = "budget_category";
     public static final String COLUMN_BUDGET_INITIAL_AMOUNT = "budget_initial_amount";
     public static final String COLUMN_BUDGET_AMOUNT_SPENT = "budget_amount_spent";
-    //id, date
 
     public static final String TABLE_OVERVIEW_CREATE = "CREATE TABLE " + TABLE_OVERVIEW + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "

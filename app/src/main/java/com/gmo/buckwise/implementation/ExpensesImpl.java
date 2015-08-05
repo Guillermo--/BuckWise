@@ -61,7 +61,7 @@ public class ExpensesImpl {
         double existingTotalExpenses = expense.getExpenseTotal();
         double newTotalExpenses = 0.0;
         String newCategoriesString = expense.getExpenseCategories();
-        String newAmountsString = expense.getExpenseAmounts();
+        String newAmountsString;
 
         if (categoriesAndAmounts.containsKey(category)) {
             existingAmount = categoriesAndAmounts.get(category);
