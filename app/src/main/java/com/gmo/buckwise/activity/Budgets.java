@@ -66,8 +66,7 @@ public class Budgets extends ActionBarActivity {
         setContentView(R.layout.activity_budgets);
         context = this;
 
-        BudgetsImpl budgetsImpl = new BudgetsImpl(context);
-        budget = budgetsImpl.getLatestBudget();
+        getBudgetData();
 
         initializeViews();
         setViews();
@@ -110,6 +109,12 @@ public class Budgets extends ActionBarActivity {
         mProgress.setProgressDrawable(drawable);
     }
 
+    private void getBudgetData(){
+        BudgetsImpl budgetImpl = new BudgetsImpl(context);
+        budget = budgetImpl.getLatestBudget();
+
+    }
+
     public static void animateProgressBar(int initialAmount, int amountAvailable) {
         ObjectAnimator animation = ObjectAnimator.ofInt(mProgress, "progress", initialAmount + 200, amountAvailable);
         animation.setDuration(2000);
@@ -147,6 +152,7 @@ public class Budgets extends ActionBarActivity {
                     public void onClick(View v) {
                         String inputCategoryStr = inputCategory.getText().toString();
                         String inputAmountStr = inputAmount.getText().toString();
+                        getBudgetData();
                         if (inputCategoryStr.isEmpty()) {
                             Toast.makeText(context, "Enter a category.", Toast.LENGTH_SHORT).show();
                         } else {
@@ -255,18 +261,4 @@ public class Budgets extends ActionBarActivity {
                 });
     }
 
-    private void createExpenseFromBudget(String inputCategory, String inputAmount){
-        ExpensesImpl expensesImpl = new ExpensesImpl(context);
-        Expense latestExpense = expensesImpl.getLatestExpenses();
-        latestExpense.setDateCreated(Util.getCurrentDateTime());
-        expensesImpl.addCategoryAndAmount(latestExpense, inputCategory, inputAmount);
-    }
-
-    public Budget getBudget(){
-        return budget;
-    }
-
-    public void setBudget(Budget budget){
-        this.budget = budget;
-    }
 }
