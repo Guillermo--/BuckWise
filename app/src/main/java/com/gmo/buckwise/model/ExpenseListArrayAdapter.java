@@ -16,10 +16,13 @@ import android.widget.TextView;
 import com.gmo.buckwise.R;
 import com.gmo.buckwise.activity.Dashboard;
 import com.gmo.buckwise.activity.Expenses;
+import com.gmo.buckwise.implementation.BudgetsImpl;
 import com.gmo.buckwise.implementation.ExpensesImpl;
 import com.gmo.buckwise.util.Util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -195,6 +198,15 @@ public class ExpenseListArrayAdapter extends BaseAdapter {
                 refreshListData(expense.getExpenseCategoryAndAmount());
                 ((BaseAdapter)Expenses.expensesList.getAdapter()).notifyDataSetChanged();
                 Expenses.expensesTotalAmount.setText(Util.doubleToCurrency(expense.getExpenseTotal()));
+
+                //reflect changes on Budget activity if applicable
+                BudgetsImpl budgetsImpl = new BudgetsImpl(context);
+                Budget budget = budgetsImpl.getLatestBudget();
+                String budgetCategories = budget.getCategories();
+                if (budgetCategories.contains(rowName)) {
+                    budgetsImpl.logBudgetExpense(rowName, input.getText().toString());
+                }
+
                 alertDialog.dismiss();
             }
         });
