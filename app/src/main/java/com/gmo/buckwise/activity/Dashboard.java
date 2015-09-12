@@ -79,16 +79,11 @@ public class Dashboard extends AppCompatActivity {
         setUpNavigationDrawer();
         setTypefaces();
         handleCalendarIcon();
+        printDatabase();
 
-        ExpensesDAO expensesDAO = new ExpensesDAO(context);
-        expensesDAO.printDatabase(MySQLiteHelper.TABLE_EXPENSES);
-
-        OverviewDAO overviewDAO = new OverviewDAO(context);
-        overviewDAO.printDatabase(MySQLiteHelper.TABLE_OVERVIEW);
-
-        BudgetsDAO budgetsDAO = new BudgetsDAO(context);
-        budgetsDAO.printDatabase(MySQLiteHelper.TABLE_BUDGETS);
+        MySQLiteHelper.populateOverviewDB();
     }
+
 
     @Override
     public void onResume() {
@@ -305,5 +300,16 @@ public class Dashboard extends AppCompatActivity {
             setAlternateDate(selectedDay, selectedMonth, selectedYear);
         }
     };
+
+    private void printDatabase() {
+        ExpensesDAO expensesDAO = new ExpensesDAO(context);
+        expensesDAO.printDatabase(MySQLiteHelper.TABLE_EXPENSES);
+
+        OverviewDAO overviewDAO = new OverviewDAO(context);
+        overviewDAO.printDatabase(MySQLiteHelper.TABLE_OVERVIEW);
+
+        BudgetsDAO budgetsDAO = new BudgetsDAO(context);
+        budgetsDAO.printDatabase(MySQLiteHelper.TABLE_BUDGETS);
+    }
 }
 

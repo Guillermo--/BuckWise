@@ -63,6 +63,7 @@ public class BudgetsDAO {
             colNames += formattedCol;
         }
         int colCount = columnArray.length;
+        System.out.println("-------------------------------------BUDGETS------------------------------------");
         System.out.println(colNames+"   |   ");
 
         String sql = "SELECT * FROM "+tableName;
@@ -102,8 +103,6 @@ public class BudgetsDAO {
         if(isThereAnEntryForThisDate(budget.getDateCreated())){
             deleteOldEntryInDate(budget.getDateCreated());
         }
-
-        //Log.d("---Test", budget.getAmountsSpent().toString());
 
         ContentValues insertValues = new ContentValues();
         insertValues.put(MySQLiteHelper.COLUMN_BUDGET_CATEGORY, budget.getCategories());

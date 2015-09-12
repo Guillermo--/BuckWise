@@ -4,6 +4,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.gmo.buckwise.model.Overview;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * Created by GMO on 5/27/2015.
  */
@@ -78,6 +87,47 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES);
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_BUDGETS);
         onCreate(database);
+    }
+
+    public static void populateOverviewDB(){
+        String file = "C:\\Users\\GMO\\AndroidStudioProjects\\BuckWise\\app\\src\\main\\overviewTestData.txt";
+        BufferedReader br = null;
+        String line = "";
+        String delimiter = "|";
+
+        try {
+            br = new BufferedReader(new FileReader(file));
+
+            while ((line = br.readLine()) != null) {
+                String[] object = line.split(delimiter);
+
+                Overview overview = new Overview();
+                overview.setDateCreated(object[0]);
+                overview.setNetIncome(Double.valueOf(object[1]));
+                overview.setExpenses(Double.valueOf(object[2]));
+                overview.setLastMonthNetIncome(Double.valueOf(object[3]));
+
+                OverviewDAO overviewDAO = new OverviewDAO(null);
+                overviewDAO.insertOverview(overview);
+
+                System.out.println("--------Data populated: Overview -----------");
+            }
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

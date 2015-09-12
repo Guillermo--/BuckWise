@@ -70,7 +70,7 @@ public class OverviewDAO {
         close();
     }
 
-    private void insertOverview(Overview overview) {
+    public void insertOverview(Overview overview) {
         ContentValues insertValues = new ContentValues();
         insertValues.put(MySQLiteHelper.COLUMN_AVERAGE_NET_INCOME, overview.getAverageNetIncome());
         insertValues.put(MySQLiteHelper.COLUMN_NET_INCOME, overview.getNetIncome());
@@ -158,6 +158,7 @@ public class OverviewDAO {
             colNames += formattedCol;
         }
         int colCount = columnArray.length;
+        System.out.println("---------------------------------------OVERVIEW------------------------------------");
         System.out.println(colNames+"   |   ");
 
         String sql = "SELECT * FROM "+tableName;

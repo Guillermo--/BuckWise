@@ -118,7 +118,7 @@ public class ExpensesDAO {
         int r = database.update("expenses", updateValues, strFilter, null);
     }
 
-    private void insertExpense(Expense expense) {
+    public void insertExpense(Expense expense) {
         ContentValues insertValues = new ContentValues();
         insertValues.put(MySQLiteHelper.COLUMN_EXPENSE_CATEGORY, expense.getExpenseCategories());
         insertValues.put(MySQLiteHelper.COLUMN_EXPENSE_AMOUNT, expense.getExpenseAmounts());
@@ -141,6 +141,7 @@ public class ExpensesDAO {
             colNames += formattedCol;
         }
         int colCount = columnArray.length;
+        System.out.println("-----------------------------------EXPENSES------------------------------");
         System.out.println(colNames+"   |   ");
 
         String sql = "SELECT * FROM "+tableName;
