@@ -1,9 +1,12 @@
 package com.gmo.buckwise.database;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.gmo.buckwise.model.Budget;
+import com.gmo.buckwise.model.Expense;
 import com.gmo.buckwise.model.Overview;
 
 import java.io.BufferedReader;
@@ -12,6 +15,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by GMO on 5/27/2015.
@@ -89,28 +94,132 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    public static void populateOverviewDB(){
-        String file = "C:\\Users\\GMO\\AndroidStudioProjects\\BuckWise\\app\\src\\main\\overviewTestData.txt";
-        BufferedReader br = null;
+    public static void populateOverviewDataFromFile(Context context){
         String line = "";
-        String delimiter = "|";
+        BufferedReader br = null;
 
         try {
-            br = new BufferedReader(new FileReader(file));
+            AssetManager am = context.getAssets();
+            InputStream is = am.open("overviewTestData.txt");
+            br = new BufferedReader(new InputStreamReader(is));
 
             while ((line = br.readLine()) != null) {
-                String[] object = line.split(delimiter);
+                String[] object = line.split(";");
+
+                System.out.println(line);
+                System.out.println(object.length);
+                System.out.println(object[0]);
+                System.out.println(object[1]);
+                System.out.println(object[2]);
+                System.out.println(object[3]);
 
                 Overview overview = new Overview();
                 overview.setDateCreated(object[0]);
-                overview.setNetIncome(Double.valueOf(object[1]));
-                overview.setExpenses(Double.valueOf(object[2]));
-                overview.setLastMonthNetIncome(Double.valueOf(object[3]));
+                overview.setIncome(Double.valueOf(object[1]));
+                overview.setNetIncome(Double.valueOf(object[2]));
+                overview.setExpenses(Double.valueOf(object[3]));
+                overview.setLastMonthNetIncome(Double.valueOf(object[4]));
 
-                OverviewDAO overviewDAO = new OverviewDAO(null);
+                OverviewDAO overviewDAO = new OverviewDAO(context);
                 overviewDAO.insertOverview(overview);
 
                 System.out.println("--------Data populated: Overview -----------");
+            }
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void populateExpenseDataFromFile(Context context){
+        String line = "";
+        BufferedReader br = null;
+
+        try {
+            AssetManager am = context.getAssets();
+            InputStream is = am.open("expensesTestData.txt");
+            br = new BufferedReader(new InputStreamReader(is));
+
+            while ((line = br.readLine()) != null) {
+                String[] object = line.split(";");
+
+                System.out.println(line);
+                System.out.println(object.length);
+                System.out.println(object[0]);
+                System.out.println(object[1]);
+                System.out.println(object[2]);
+                System.out.println(object[3]);
+
+                Expense expense = new Expense();
+                expense.setDateCreated(object[0]);
+                expense.setExpenseTotal(Double.valueOf(object[1]));
+                expense.setExpenseCategory(object[2]);
+                expense.setExpenseAmount(object[3]);
+
+                ExpensesDAO expensesDAO = new ExpensesDAO(context);
+                expensesDAO.insertExpense(expense);
+
+                System.out.println("--------Data populated: Expense -----------");
+            }
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void populateBudgetDataFromFile(Context context){
+        String line = "";
+        BufferedReader br = null;
+
+        try {
+            AssetManager am = context.getAssets();
+            InputStream is = am.open("budgetTestData.txt");
+            br = new BufferedReader(new InputStreamReader(is));
+
+            while ((line = br.readLine()) != null) {
+                String[] object = line.split(";");
+
+                System.out.println(line);
+                System.out.println(object.length);
+                System.out.println(object[0]);
+                System.out.println(object[1]);
+                System.out.println(object[2]);
+                System.out.println(object[3]);
+
+                Budget budget = new Budget();
+                budget.setDateCreated(object[0]);
+                budget.setCategories(object[1]);
+                budget.setAmountsSpent(object[2]);
+                budget.setInitialAmounts(object[3]);
+
+                BudgetsDAO budgetsDAO = new BudgetsDAO(context);
+                budgetsDAO.createBudgetItem(budget);
+
+                System.out.println("--------Data populated: Budget -----------");
             }
         }
         catch (FileNotFoundException e) {

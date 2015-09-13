@@ -119,12 +119,18 @@ public class ExpensesDAO {
     }
 
     public void insertExpense(Expense expense) {
+        try {
+            open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         ContentValues insertValues = new ContentValues();
         insertValues.put(MySQLiteHelper.COLUMN_EXPENSE_CATEGORY, expense.getExpenseCategories());
         insertValues.put(MySQLiteHelper.COLUMN_EXPENSE_AMOUNT, expense.getExpenseAmounts());
         insertValues.put(MySQLiteHelper.COLUMN_DATE, expense.getDateCreated());
         insertValues.put(MySQLiteHelper.COLUMN_EXPENSES_TOTAL, expense.getExpenseTotal());
         database.insert("expenses", null, insertValues);
+        close();
     }
 
     public void printDatabase(String tableName){

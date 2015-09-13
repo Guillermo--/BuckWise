@@ -71,6 +71,12 @@ public class OverviewDAO {
     }
 
     public void insertOverview(Overview overview) {
+        try {
+            open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         ContentValues insertValues = new ContentValues();
         insertValues.put(MySQLiteHelper.COLUMN_AVERAGE_NET_INCOME, overview.getAverageNetIncome());
         insertValues.put(MySQLiteHelper.COLUMN_NET_INCOME, overview.getNetIncome());
@@ -80,6 +86,8 @@ public class OverviewDAO {
         insertValues.put(MySQLiteHelper.COLUMN_BANK, overview.getBank());
         insertValues.put(MySQLiteHelper.COLUMN_DATE, overview.getDateCreated());
         database.insert("overview", null, insertValues);
+
+        close();
     }
 
     private void updateOverview(Overview overview) {

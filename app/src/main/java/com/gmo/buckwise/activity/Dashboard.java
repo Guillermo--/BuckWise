@@ -81,9 +81,11 @@ public class Dashboard extends AppCompatActivity {
         handleCalendarIcon();
         printDatabase();
 
-        MySQLiteHelper.populateOverviewDB();
-    }
+//        MySQLiteHelper.populateOverviewDataFromFile(context);
+//        MySQLiteHelper.populateExpenseDataFromFile(context);
+//        MySQLiteHelper.populateBudgetDataFromFile(context);
 
+    }
 
     @Override
     public void onResume() {
