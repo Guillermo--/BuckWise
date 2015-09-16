@@ -70,6 +70,22 @@ public class ExpensesDAO {
         return totalExpensesAmount;
     }
 
+    public double getTotalExpensesAmount(String date) {
+        try {
+            open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        double totalExpensesAmount = 0.00;
+        String sql = "SELECT expense_total FROM expenses WHERE date = '"+date+"';";
+        Cursor cursor = database.rawQuery(sql, null);
+        if(cursor != null && cursor.moveToFirst()){
+            totalExpensesAmount = cursor.getDouble(0);
+        }
+        close();
+        return totalExpensesAmount;
+    }
+
     public String getLatestDate(){
         try {
             open();

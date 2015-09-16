@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.gmo.buckwise.R;
+import com.gmo.buckwise.activity.Analytics;
 import com.gmo.buckwise.activity.Budgets;
 import com.gmo.buckwise.activity.Dashboard;
 import com.gmo.buckwise.activity.Expenses;
@@ -114,6 +115,36 @@ public class NavigationDrawerItemClickListener implements ListView.OnItemClickLi
                     @Override
                     public void onDrawerClosed(View drawerView) {
                         Intent intent = new Intent(context, Budgets.class);
+                        context.startActivity(intent);
+                    }
+
+                    @Override
+                    public void onDrawerStateChanged(int newState) {
+
+                    }
+                });
+            }
+            else{
+                drawerLayout.closeDrawer(Gravity.LEFT);
+            }
+        }
+        else if(itemTitle.equals("Analytics")){
+            if(context != Analytics.context){
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                    }
+
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        Intent intent = new Intent(context, Analytics.class);
                         context.startActivity(intent);
                     }
 

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gmo.buckwise.R;
+import com.gmo.buckwise.activity.Analytics;
 import com.gmo.buckwise.activity.Budgets;
 import com.gmo.buckwise.activity.Dashboard;
 import com.gmo.buckwise.activity.Expenses;
@@ -53,6 +54,9 @@ public class NavigationDrawerArrayAdapter extends ArrayAdapter<String> {
         if (listItem.equals("Settings")) {
             imageView.setImageResource(R.drawable.ic_settings_grey600_24dp);
         }
+        if(listItem.equals("Analytics")) {
+            imageView.setImageResource(R.drawable.ic_chart_bar_grey600_24dp);
+        }
 
         if (context == Dashboard.context && textView.getText().equals("Overview")) {
             textView.setTextColor(context.getResources().getColor(R.color.dialogAccent));
@@ -63,6 +67,10 @@ public class NavigationDrawerArrayAdapter extends ArrayAdapter<String> {
             imageView.setColorFilter(context.getResources().getColor(R.color.dialogAccent));
         }
         else if (context == Budgets.context && textView.getText().equals("Budgets")) {
+            textView.setTextColor(context.getResources().getColor(R.color.dialogAccent));
+            imageView.setColorFilter(context.getResources().getColor(R.color.dialogAccent));
+        }
+        else if (context == Analytics.context && textView.getText().equals("Analytics")) {
             textView.setTextColor(context.getResources().getColor(R.color.dialogAccent));
             imageView.setColorFilter(context.getResources().getColor(R.color.dialogAccent));
         }

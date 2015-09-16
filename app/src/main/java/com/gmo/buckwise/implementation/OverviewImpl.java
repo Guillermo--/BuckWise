@@ -24,6 +24,11 @@ public class OverviewImpl extends Overview {
         return overview;
     }
 
+    public Overview getSpecificOverview(String date) {
+        Overview overview = overviewDao.getSpecificOverview(date);
+        return overview;
+    }
+
     public Overview createOverview(Overview overview){
         String datetime = Util.getCurrentDateTime();
         ExpensesImpl expensesImpl = new ExpensesImpl(context);

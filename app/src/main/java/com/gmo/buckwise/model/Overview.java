@@ -77,4 +77,9 @@ public class Overview {
     public void setAverageNetIncome(double averageNetIncome) {
         this.averageNetIncome = averageNetIncome;
     }
+
+    public String toString(){
+        String output = "Date :"+dateCreated+"\nIncome: "+income+"\nNet Income: "+netIncome+"\nExpenes: "+expenses;
+        return output;
+    }
 }

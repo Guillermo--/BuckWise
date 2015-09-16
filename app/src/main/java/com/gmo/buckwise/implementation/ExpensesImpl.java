@@ -55,6 +55,10 @@ public class ExpensesImpl {
         return expensesDAO.getTotalExpensesAmount();
     }
 
+    public double getTotalExpensesAmount(String date) {
+        return expensesDAO.getTotalExpensesAmount(date);
+    }
+
     public Expense editExpenseAmount(Expense expense, String category, String newAmount){
         Map<String, Double> categoriesAndAmounts = expense.getExpenseCategoryAndAmount();
         double existingAmount;

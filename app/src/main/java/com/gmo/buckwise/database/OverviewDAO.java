@@ -152,6 +152,36 @@ public class OverviewDAO {
         return latestOverview;
     }
 
+    public Overview getSpecificOverview(String date) {
+        try {
+            open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Overview overview = new Overview();
+        String sql = "SELECT * FROM overview WHERE date = '"+date+"';";
+        System.out.println("QUERY: "+sql);
+        Cursor cursor = database.rawQuery(sql, null);
+
+        if(cursor != null && cursor.moveToFirst()){
+            overview.setNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_NET_INCOME)));
+            overview.setIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_INCOME)));
+            overview.setBank(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_BANK)));
+            overview.setExpenses(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_EXPENSES)));
+            overview.setDateCreated(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_DATE)));
+            overview.setId(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_ID)));
+            overview.setAverageNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_AVERAGE_NET_INCOME)));
+            overview.setLastMonthNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_LAST_MONTH_NET_INCOME)));
+        }
+
+        System.out.println("FROM DATABASE");
+        System.out.println(overview.toString());
+
+        close();
+        return overview;
+    }
+
     public void printDatabase(String tableName){
         try {
             open();

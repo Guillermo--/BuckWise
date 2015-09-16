@@ -19,4 +19,5 @@
     <item name="base" type="color">#F5F5F5</item>
     <item name="statusBar" type="color">#37474F</item>
     <item name="dialogAccent" type="color">#00796B</item>
+    <item name="tabTextColor" type="color">#9BA3A7</item>
 </resources>

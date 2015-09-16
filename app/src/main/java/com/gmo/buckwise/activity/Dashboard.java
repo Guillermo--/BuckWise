@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.gmo.buckwise.R;
 import com.gmo.buckwise.database.BudgetsDAO;
 import com.gmo.buckwise.database.ExpensesDAO;
@@ -95,7 +97,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
     private void setUpNavigationDrawer() {
-        String[] values = new String[] {"Overview", "Expenses", "Budgets", "Settings"};
+        String[] values = new String[] {"Overview", "Expenses", "Budgets", "Analytics", "Settings"};
         NavigationDrawerArrayAdapter adapter = new NavigationDrawerArrayAdapter(this, values);
         navigationDrawerItems = (ListView)findViewById(R.id.navigationDrawer_items);
         navigationDrawerItems.setAdapter(adapter);
@@ -195,6 +197,11 @@ public class Dashboard extends AppCompatActivity {
         overview = overviewImpl.getLatestOverview();
     }
 
+    public void getSpecificOverviewData(String date) {
+        OverviewImpl overviewImpl = new OverviewImpl(context);
+        overview = overviewImpl.getSpecificOverview(date);
+    }
+
     public void setActivityData(Overview overview) {
         Util util = new Util();
         income.setText(util.doubleToCurrency(overview.getIncome()));
@@ -206,6 +213,19 @@ public class Dashboard extends AppCompatActivity {
 
         ExpensesImpl expensesImpl = new ExpensesImpl(context);
         expenses.setText(util.doubleToCurrency(expensesImpl.getTotalExpensesAmount()));
+    }
+
+    public void setSpecificActivityData(Overview overview, String date) {
+        Util util = new Util();
+        income.setText(util.doubleToCurrency(overview.getIncome()));
+        netIncome.setText(util.doubleToCurrency(overview.getNetIncome()));
+        expenses.setText(util.doubleToCurrency(overview.getExpenses()));
+        bank.setText(util.doubleToCurrency(overview.getBank()));
+        averageNetIncome.setText(util.doubleToCurrency(overview.getAverageNetIncome()));
+        lastMonthNetIncome.setText(util.doubleToCurrency(overview.getLastMonthNetIncome()));
+
+        ExpensesImpl expensesImpl = new ExpensesImpl(context);
+        expenses.setText(util.doubleToCurrency(expensesImpl.getTotalExpensesAmount(date)));
     }
 
     public void handleAddIncomeButton() {
@@ -299,7 +319,21 @@ public class Dashboard extends AppCompatActivity {
             year_x = selectedYear;
             month_x = selectedMonth + 1;
             day_x = selectedDay;
+            String twoDigitMonth = "";
+            String twoDigitDay = "";
+
+            if(month_x < 10){
+                twoDigitMonth = 0+String.valueOf(month_x);
+            }
+            if(day_x < 10) {
+                twoDigitDay = 0+String.valueOf(day_x);
+            }
+
+            String date = year_x + "/" + twoDigitMonth + "/" + twoDigitDay;
             setAlternateDate(selectedDay, selectedMonth, selectedYear);
+            getSpecificOverviewData(date);
+            setSpecificActivityData(overview, date);
+            Toast.makeText(getBaseContext(), "Displaying data for "+date, Toast.LENGTH_LONG).show();
         }
     };
 
