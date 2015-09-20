@@ -3,12 +3,15 @@
     <item name="textLight" type="color">#ffffffff</item>
     <item name="textDarker" type="color">#616161</item>
     <item name="textDark" type="color">#757575</item>
-    <item name="actionBar" type="color">#455A64</item>
-    <item name="accent" type="color">#00BFA5</item>
+    <item name="accent" type="color">#00AC94</item>
     <item name="base" type="color">#F5F5F5</item>
+    <item name="baseDark" type="color">#324047</item>
     <item name="statusBar" type="color">#37474F</item>
+    <item name="actionBar" type="color">#455A64</item>
     <item name="dialogAccent" type="color">#00796B</item>
     <item name="tabTextColor" type="color">#9BA3A7</item>
+    <item name="progressBarBackground" type="color">#5F6C72</item>
 
     <item name="chartBackgroundColor" type="color">#009688</item>
+
 </resources>

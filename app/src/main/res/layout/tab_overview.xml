@@ -49,14 +49,24 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingRight="15dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="10dp"
+                android:backgroundTint="@color/chartBackgroundColor"
                 android:background="#FFFFFF">
                 <TextView
                     android:layout_width="match_parent"
+                    android:id="@+id/analytics_overview_card2_title"
                     android:layout_height="wrap_content"
-                    android:text="Net Income"
+                    android:text="Average, Last Month, Present"
                     android:textSize="15sp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"/>
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/analytics_overview_chart2"
+                    android:layout_below="@id/analytics_overview_card2_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
     </RelativeLayout>

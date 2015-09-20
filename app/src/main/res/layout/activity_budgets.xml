@@ -81,6 +81,7 @@
                         android:id="@+id/budgets_progressBar"
                         style="@android:style/Widget.ProgressBar.Horizontal"
                         android:layout_width="fill_parent"
+                        android:progressBackgroundTint="@color/progressBarBackground"
                         android:layout_height="8dp"
                         android:layout_marginTop="15dp"/>
                     <TextView

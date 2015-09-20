@@ -19,7 +19,7 @@ public class Analytics extends AppCompatActivity {
         setContentView(R.layout.activity_analytics);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.addTab(tabLayout.newTab().setText("Overview"));
+        tabLayout.addTab(tabLayout.newTab().setText("Net Income"));
         tabLayout.addTab(tabLayout.newTab().setText("Expenses"));
         tabLayout.addTab(tabLayout.newTab().setText("Budget"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

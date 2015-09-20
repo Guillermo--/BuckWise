@@ -270,6 +270,7 @@ public class Expenses extends AppCompatActivity {
         pieChart.highlightValues(null);
         pieChart.setDescription("");
         pieChart.animateX(1500, Easing.EasingOption.EaseOutCirc);
+        pieChart.setTransparentCircleRadius(50);
         setPieData();
     }
 

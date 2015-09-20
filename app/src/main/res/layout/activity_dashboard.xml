@@ -20,7 +20,7 @@
                 android:minHeight="?attr/actionBarSize"
                 android:background="@color/statusBar"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_height="200dp"
                 android:elevation="2dp"
                 android:id="@+id/expense_toolbarBig">
                 <android.support.v7.widget.Toolbar
@@ -100,8 +100,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingRight="35dp"
-                    android:paddingLeft="35dp"
+                    android:paddingRight="25dp"
+                    android:paddingLeft="25dp"
                     android:paddingTop="15dp"
                     android:background="@color/accent"
                     android:paddingBottom="15dp">
@@ -182,7 +182,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:paddingTop="150dp"
+                android:paddingTop="130dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:layout_below="@+id/expense_toolbarBig">
