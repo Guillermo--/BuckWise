@@ -322,7 +322,6 @@ public class Expenses extends AppCompatActivity {
         return colors;
     }
 
-
     public Expense getExpense(){
         return expense;
     }
