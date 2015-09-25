@@ -25,7 +25,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by GMO on 5/27/2015.
@@ -79,6 +81,25 @@ public class Util {
         NumberFormat formatter;
         formatter  = NumberFormat.getCurrencyInstance();
         return formatter.format(str);
+    }
+
+    public static String monthNumberToString(String monthNumber) {
+        Map<String, String> monthNumberAndString = new HashMap<>();
+        monthNumberAndString.put("01", "Jan");
+        monthNumberAndString.put("02", "Feb");
+        monthNumberAndString.put("03", "Mar");
+        monthNumberAndString.put("04", "Apr");
+        monthNumberAndString.put("05", "May");
+        monthNumberAndString.put("06", "Jun");
+        monthNumberAndString.put("07", "Jul");
+        monthNumberAndString.put("08", "Aug");
+        monthNumberAndString.put("09", "Sep");
+        monthNumberAndString.put("10", "Oct");
+        monthNumberAndString.put("11", "Nov");
+        monthNumberAndString.put("12", "Dec");
+
+        return monthNumberAndString.get(monthNumber);
+
     }
 
 }

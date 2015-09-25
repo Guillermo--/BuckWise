@@ -88,32 +88,15 @@ public class OverviewTab extends Fragment {
     private void setLineChartData() {
         OverviewImpl overviewImpl = new OverviewImpl(Analytics.context);
         Map<String, String> netIncomeDateMap = overviewImpl.getPreviousNetIncomesThisYear();
-
-
-
-        ArrayList<Entry> yValues = new ArrayList<Entry>();
-        yValues.add(new Entry(1900, 0));
-        yValues.add(new Entry(1800, 1));
-        yValues.add(new Entry(1700, 2));
-        yValues.add(new Entry(1800, 3));
-        yValues.add(new Entry(1600, 4));
-        yValues.add(new Entry(1400, 5));
-        yValues.add(new Entry(1700, 6));
-
-        ArrayList<String> xValues = new ArrayList<String>();
-        xValues.add("Jan");
-        xValues.add("Feb");
-        xValues.add("Mar");
-        xValues.add("Apr");
-        xValues.add("May");
-        xValues.add("Jun");
-        xValues.add("Jul");
-        xValues.add("Aug");
-        xValues.add("Sep");
-        xValues.add("Oct");
-        xValues.add("Nov");
-        xValues.add("Dec");
-
+        ArrayList<String> xValues = new ArrayList<>();
+        ArrayList<Entry> yValues = new ArrayList<>();
+        int count = 0;
+        for(String key : netIncomeDateMap.keySet()){
+            xValues.add(key);
+            yValues.add(new Entry(Float.parseFloat(netIncomeDateMap.get(key)), count));
+            count++;
+        }
+        
         LineDataSet dataSet = prepareLineDataSet(yValues);
         LineData data = prepareLineData(xValues, dataSet);
         data.setDrawValues(false);

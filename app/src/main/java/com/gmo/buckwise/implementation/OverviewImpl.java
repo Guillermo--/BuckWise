@@ -9,6 +9,7 @@ import com.gmo.buckwise.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -49,12 +50,15 @@ public class OverviewImpl extends Overview {
 
     public Map<String, String> getPreviousNetIncomesThisYear() {
         ArrayList<String> months = new ArrayList<>();
-        Map<String, String> monthsAndIncome = new HashMap<String, String>();
+        Map<String, String> monthsAndIncome = new LinkedHashMap<String, String>();
         months = overviewDao.getPastMonthsWithDataThisYear();
 
         for(int i = 0; i<months.size(); i++) {
             String netIncome = overviewDao.getLastNetIncomeForMonthThisYear(months.get(i));
-            monthsAndIncome.put(months.get(i), netIncome);
+            String monthString = Util.monthNumberToString(months.get(i));
+            monthsAndIncome.put(monthString, netIncome);
+
+            System.out.println("------------" + monthString + ", " + netIncome);
         }
         return monthsAndIncome;
     }
