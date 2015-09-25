@@ -5,14 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.util.Pair;
 
 import com.gmo.buckwise.model.Overview;
 import com.gmo.buckwise.util.Util;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by GMO on 5/29/2015.
@@ -58,12 +62,12 @@ public class OverviewDAO {
         }
         else{
             Date oldDate = Util.stringToDate(getLatestDate());
+            System.out.println("-----------"+overview.getDateCreated()+", "+getLatestDate());
+            System.out.println("-----------"+currentDate+", "+oldDate);
             if(currentDate.after(oldDate)){
-                Log.d("-----Insert", "yeah");
                 insertOverview(overview);
             }
             else{
-                Log.d("-----Update", "Yeah");
                 updateOverview(overview);
             }
         }
@@ -119,7 +123,7 @@ public class OverviewDAO {
             updateValues.put("net_income", newNetIncome);
             database.update("overview", updateValues, strFilter, null);
         }
-        else{
+        else {
             Overview overview = new Overview();
             overview.setNetIncome(newNetIncome);
             overview.setDateCreated(Util.getCurrentDateTime());
@@ -225,4 +229,44 @@ public class OverviewDAO {
         cursor.close();
         close();
     }
+
+    public String getLastNetIncomeForMonthThisYear(String month) {
+        try {
+            open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String netIncome = "";
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        String sql = "SELECT MAX(strftime('%d', date)), net_income FROM overview WHERE strftime('%Y', date) = '"+year+"' AND strftime('%m', date) = '"+month+"' ORDER BY strftime('%d', date) DESC;";
+        Cursor cursor = database.rawQuery(sql, null);
+        if(cursor.moveToFirst()){
+            netIncome = cursor.getString(1);
+        }
+
+        database.close();
+        return netIncome;
+    }
+
+    public ArrayList<String> getPastMonthsWithDataThisYear() {
+        try {
+            open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String> months = new ArrayList<String>();
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        String sql = "SELECT DISTINCT strftime('%m', date) FROM overview WHERE strftime('%Y', date) = '"+year+"' ORDER BY strftime('%m', date) ASC;";
+        Cursor cursor = database.rawQuery(sql, null);
+        if(cursor.moveToFirst()){
+            while(!cursor.isAfterLast()) {
+                months.add(cursor.getString(0));
+                cursor.moveToNext();
+            }
+        }
+        database.close();
+        return months;
+    }
+
+
 }

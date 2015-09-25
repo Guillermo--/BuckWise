@@ -23,9 +23,12 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.gmo.buckwise.R;
+import com.gmo.buckwise.activity.Analytics;
+import com.gmo.buckwise.implementation.OverviewImpl;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by GMO on 9/15/2015.
@@ -35,7 +38,6 @@ public class OverviewTab extends Fragment {
     LineChart lineChart;
     BarChart barChart;
     View view;
-    private DecimalFormat formatter;
     private String chartGridLinesColor = "#00796B";
     private String chartAxisTextColor = "#004D40";
     private String chartDataLineColor = "#004D40";
@@ -84,6 +86,11 @@ public class OverviewTab extends Fragment {
     }
 
     private void setLineChartData() {
+        OverviewImpl overviewImpl = new OverviewImpl(Analytics.context);
+        Map<String, String> netIncomeDateMap = overviewImpl.getPreviousNetIncomesThisYear();
+
+
+
         ArrayList<Entry> yValues = new ArrayList<Entry>();
         yValues.add(new Entry(1900, 0));
         yValues.add(new Entry(1800, 1));
@@ -186,7 +193,6 @@ public class OverviewTab extends Fragment {
 
         barChart.setData(data);
     }
-
     private BarData prepareLineData(ArrayList<String> xValues, BarDataSet dataSet) {
         BarData data = new BarData(xValues, dataSet);
         data.setValueTextSize(11f);

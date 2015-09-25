@@ -60,12 +60,12 @@ public class Util {
     }
 
     public static String getCurrentDateTime(){
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormatter.format(Calendar.getInstance().getTime());
     }
 
     public static Date stringToDate(String dateStr){
-        DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try {
             date = formatter.parse(dateStr);

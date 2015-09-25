@@ -7,6 +7,10 @@ import com.gmo.buckwise.database.OverviewDAO;
 import com.gmo.buckwise.model.Overview;
 import com.gmo.buckwise.util.Util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by GMO on 5/29/2015.
  */
@@ -41,6 +45,18 @@ public class OverviewImpl extends Overview {
 
     public double calculateNetIncome(double income, double expenses){
         return income - expenses;
+    }
+
+    public Map<String, String> getPreviousNetIncomesThisYear() {
+        ArrayList<String> months = new ArrayList<>();
+        Map<String, String> monthsAndIncome = new HashMap<String, String>();
+        months = overviewDao.getPastMonthsWithDataThisYear();
+
+        for(int i = 0; i<months.size(); i++) {
+            String netIncome = overviewDao.getLastNetIncomeForMonthThisYear(months.get(i));
+            monthsAndIncome.put(months.get(i), netIncome);
+        }
+        return monthsAndIncome;
     }
 
     public void calculateAverageNetIncome(){
