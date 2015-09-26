@@ -2,6 +2,7 @@ package com.gmo.buckwise.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -39,28 +40,12 @@ public class NavigationDrawerItemClickListener implements ListView.OnItemClickLi
         if(itemTitle.equals("Overview")){
             if(context != Dashboard.context){
                 drawerLayout.closeDrawer(Gravity.LEFT);
-                drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onDrawerSlide(View drawerView, float slideOffset) {
-
-                    }
-
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-
-                    }
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
+                    public void run() {
                         Intent intent = new Intent(context, Dashboard.class);
-                        context.startActivity(intent);
-                    }
-
-                    @Override
-                    public void onDrawerStateChanged(int newState) {
-
-                    }
-                });
+                        context.startActivity(intent);                    }
+                }, 300);
             }
             else{
                 drawerLayout.closeDrawer(Gravity.LEFT);
@@ -70,28 +55,13 @@ public class NavigationDrawerItemClickListener implements ListView.OnItemClickLi
         else if(itemTitle.equals("Expenses")){
             if(context != Expenses.context){
                 drawerLayout.closeDrawer(Gravity.LEFT);
-                drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onDrawerSlide(View drawerView, float slideOffset) {
-
-                    }
-
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-
-                    }
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
+                    public void run() {
                         Intent intent = new Intent(context, Expenses.class);
                         context.startActivity(intent);
                     }
-
-                    @Override
-                    public void onDrawerStateChanged(int newState) {
-
-                    }
-                });
+                }, 300);
             }
             else{
                 drawerLayout.closeDrawer(Gravity.LEFT);
@@ -101,28 +71,13 @@ public class NavigationDrawerItemClickListener implements ListView.OnItemClickLi
         else if(itemTitle.equals("Budgets")){
             if(context != Budgets.context){
                 drawerLayout.closeDrawer(Gravity.LEFT);
-                drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onDrawerSlide(View drawerView, float slideOffset) {
-
-                    }
-
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-
-                    }
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
+                    public void run() {
                         Intent intent = new Intent(context, Budgets.class);
                         context.startActivity(intent);
                     }
-
-                    @Override
-                    public void onDrawerStateChanged(int newState) {
-
-                    }
-                });
+                }, 300);
             }
             else{
                 drawerLayout.closeDrawer(Gravity.LEFT);
@@ -131,28 +86,13 @@ public class NavigationDrawerItemClickListener implements ListView.OnItemClickLi
         else if(itemTitle.equals("Analytics")){
             if(context != Analytics.context){
                 drawerLayout.closeDrawer(Gravity.LEFT);
-                drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onDrawerSlide(View drawerView, float slideOffset) {
-
-                    }
-
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-
-                    }
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
+                    public void run() {
                         Intent intent = new Intent(context, Analytics.class);
                         context.startActivity(intent);
                     }
-
-                    @Override
-                    public void onDrawerStateChanged(int newState) {
-
-                    }
-                });
+                }, 300);
             }
             else{
                 drawerLayout.closeDrawer(Gravity.LEFT);

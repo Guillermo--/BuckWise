@@ -38,6 +38,7 @@ public class Util {
     public static Typeface typefaceRobotoThin = Typeface.createFromAsset(Dashboard.context.getAssets(),"fonts/Roboto-Thin.ttf");
     public static Typeface typefaceRobotoMedium = Typeface.createFromAsset(Dashboard.context.getAssets(),"fonts/Roboto-Medium.ttf");
     public static Typeface typefaceRobotoRegular = Typeface.createFromAsset(Dashboard.context.getAssets(),"fonts/Roboto-Regular.ttf");
+    public static Typeface typefaceBadScript = Typeface.createFromAsset(Dashboard.context.getAssets(), "fonts/BadScript-Regular.ttf");
 
     public String getCurrentMonth() {
         Calendar cal = Calendar.getInstance();

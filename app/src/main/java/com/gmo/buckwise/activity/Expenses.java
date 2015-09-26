@@ -3,6 +3,7 @@ package com.gmo.buckwise.activity;
 import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -153,6 +154,8 @@ public class Expenses extends AppCompatActivity {
         expensesLastMonthTitle.setTypeface(util.typefaceRobotoLight);
         expensesLastMonthAmount.setTypeface(util.typefaceRobotoLight);
         expenseHelperMessage.setTypeface(util.typefaceRobotoMedium);
+        navigationDrawerTitle.setTypeface(util.typefaceBadScript, Typeface.BOLD);
+
     }
 
     private void setUpNavigationDrawer() {

@@ -59,20 +59,24 @@ public class NavigationDrawerArrayAdapter extends ArrayAdapter<String> {
         }
 
         if (context == Dashboard.context && textView.getText().equals("Overview")) {
-            textView.setTextColor(context.getResources().getColor(R.color.dialogAccent));
-            imageView.setColorFilter(context.getResources().getColor(R.color.dialogAccent));
+            textView.setTextColor(context.getResources().getColor(R.color.accent));
+            textView.setTypeface(Util.typefaceRobotoMedium);
+            imageView.setColorFilter(context.getResources().getColor(R.color.accent));
         }
         else if (context == Expenses.context && textView.getText().equals("Expenses")) {
-            textView.setTextColor(context.getResources().getColor(R.color.dialogAccent));
-            imageView.setColorFilter(context.getResources().getColor(R.color.dialogAccent));
+            textView.setTextColor(context.getResources().getColor(R.color.accent));
+            textView.setTypeface(Util.typefaceRobotoMedium);
+            imageView.setColorFilter(context.getResources().getColor(R.color.accent));
         }
         else if (context == Budgets.context && textView.getText().equals("Budgets")) {
-            textView.setTextColor(context.getResources().getColor(R.color.dialogAccent));
-            imageView.setColorFilter(context.getResources().getColor(R.color.dialogAccent));
+            textView.setTextColor(context.getResources().getColor(R.color.accent));
+            textView.setTypeface(Util.typefaceRobotoMedium);
+            imageView.setColorFilter(context.getResources().getColor(R.color.accent));
         }
         else if (context == Analytics.context && textView.getText().equals("Analytics")) {
-            textView.setTextColor(context.getResources().getColor(R.color.dialogAccent));
-            imageView.setColorFilter(context.getResources().getColor(R.color.dialogAccent));
+            textView.setTextColor(context.getResources().getColor(R.color.accent));
+            textView.setTypeface(Util.typefaceRobotoMedium);
+            imageView.setColorFilter(context.getResources().getColor(R.color.accent));
         }
 
         return rowView;

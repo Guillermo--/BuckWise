@@ -217,13 +217,13 @@
                 android:id="@+id/navigationDrawer_header"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="@color/actionBar">
+                android:background="@color/navDrawerHeader">
                 <TextView
                     android:id="@+id/navigationDrawer_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="Navigation"
+                    android:textSize="23sp"
+                    android:text="BuckWise"
                     android:textColor="@color/textLight"
                     android:layout_centerInParent="true"/>
             </RelativeLayout>
@@ -234,7 +234,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@null"
-                android:background="#fff"
+                android:background="@color/navDrawerBody"
                 android:dividerHeight="1dp"
                 />
         </RelativeLayout>

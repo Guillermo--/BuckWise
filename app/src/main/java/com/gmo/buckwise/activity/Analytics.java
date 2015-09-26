@@ -1,23 +1,41 @@
 package com.gmo.buckwise.activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.gmo.buckwise.R;
+import com.gmo.buckwise.model.NavigationDrawerArrayAdapter;
+import com.gmo.buckwise.model.NavigationDrawerItemClickListener;
 import com.gmo.buckwise.model.TabsFragmentAdapter;
+import com.gmo.buckwise.util.Util;
 
 
 public class Analytics extends AppCompatActivity {
 
     public static Context context;
+    ListView mDrawerList;
+    public static DrawerLayout mDrawerLayout;
+    TextView navigationDrawerTitle;
+    ListView navigationDrawerItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analytics);
         context = this;
+        initializeViews();
+        setUpNavigationDrawer();
+        setTypeFaces();
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.addTab(tabLayout.newTab().setText("Net Income"));
@@ -46,5 +64,38 @@ public class Analytics extends AppCompatActivity {
             }
         });
     }
+
+    public void initializeViews() {
+        navigationDrawerTitle = (TextView)findViewById(R.id.navigationDrawer_title);
+    }
+
+    public void setTypeFaces(){
+        navigationDrawerTitle.setTypeface(Util.typefaceRobotoLight);
+        navigationDrawerTitle.setTypeface(Util.typefaceBadScript, Typeface.BOLD);
+
+    }
+
+    private void setHamburgerIconClick() {
+        mDrawerList = (ListView)findViewById(R.id.navigationDrawer_items);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.DrawerLayout);
+        ImageButton drawerButton = (ImageButton) findViewById(R.id.analytics_iconHamburger);
+        drawerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+    }
+
+    private void setUpNavigationDrawer() {
+        String[] values = new String[] {"Overview", "Expenses", "Budgets", "Analytics", "Settings"};
+        NavigationDrawerArrayAdapter adapter = new NavigationDrawerArrayAdapter(this, values);
+        navigationDrawerItems = (ListView)findViewById(R.id.navigationDrawer_items);
+        navigationDrawerItems.setAdapter(adapter);
+        setHamburgerIconClick();
+        mDrawerList.setOnItemClickListener(new NavigationDrawerItemClickListener(mDrawerLayout, context));
+
+    }
+
 
 }

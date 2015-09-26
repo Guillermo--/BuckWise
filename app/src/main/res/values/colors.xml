@@ -12,6 +12,9 @@
     <item name="tabTextColor" type="color">#9BA3A7</item>
     <item name="progressBarBackground" type="color">#5F6C72</item>
 
+    <item name="navDrawerHeader" type="color">#455A64</item>
+    <item name="navDrawerBody" type="color">#FFFFFF</item>
+
     <item name="chartBackgroundColor" type="color">#009688</item>
 
 </resources>

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -174,7 +175,7 @@ public class Dashboard extends AppCompatActivity {
         expenses.setTypeface(util.typefaceRobotoLight);
         bank.setTypeface(util.typefaceRobotoLight);
 
-        navigationDrawerTitle.setTypeface(util.typefaceRobotoLight);
+        navigationDrawerTitle.setTypeface(util.typefaceBadScript, Typeface.BOLD);
     }
 
     public void setCurrentDate() {

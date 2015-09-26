@@ -3,6 +3,7 @@ package com.gmo.buckwise.activity;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -98,6 +99,8 @@ public class Budgets extends ActionBarActivity {
         progressBarTitle.setTypeface(Util.typefaceRobotoRegular);
         progressBarAmountAvailable.setTypeface(Util.typefaceRobotoLight);
         progressBarAmountStartedWith.setTypeface(Util.typefaceRobotoLight);
+        navigationDrawerTitle.setTypeface(util.typefaceBadScript, Typeface.BOLD);
+
     }
 
     private void setUpProgressBar() {
@@ -240,7 +243,7 @@ public class Budgets extends ActionBarActivity {
     }
 
     private void setUpNavigationDrawer() {
-        String[] values = new String[] {"Overview", "Expenses", "Budgets", "Settings"};
+        String[] values = new String[] {"Overview", "Expenses", "Budgets", "Analytics", "Settings"};
         NavigationDrawerArrayAdapter adapter = new NavigationDrawerArrayAdapter(this, values);
         navigationDrawerItems = (ListView)findViewById(R.id.navigationDrawer_items);
         navigationDrawerItems.setAdapter(adapter);
