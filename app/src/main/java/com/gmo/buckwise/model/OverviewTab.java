@@ -43,7 +43,6 @@ public class OverviewTab extends Fragment {
     private String chartDataLineColor = "#004D40";
     private String chartCircleColor =  "#004D40";
     private String chartLineFillColor = "#00796B";
-
     private String barChartBarColor = "#00796B";
 
     @Override
@@ -51,7 +50,6 @@ public class OverviewTab extends Fragment {
         view =inflater.inflate(R.layout.tab_overview,container,false);
         handleLineChart();
         handleBarChart();
-
         return view;
     }
 
@@ -96,7 +94,7 @@ public class OverviewTab extends Fragment {
             yValues.add(new Entry(Float.parseFloat(netIncomeDateMap.get(key)), count));
             count++;
         }
-        
+
         LineDataSet dataSet = prepareLineDataSet(yValues);
         LineData data = prepareLineData(xValues, dataSet);
         data.setDrawValues(false);
@@ -126,8 +124,6 @@ public class OverviewTab extends Fragment {
 
         return dataSet;
     }
-
-
 
     private void handleBarChart(){
         barChart = (BarChart)view.findViewById(R.id.analytics_overview_chart2);
@@ -159,11 +155,21 @@ public class OverviewTab extends Fragment {
         setBarChartData();
 
     }
+
     private void setBarChartData() {
+        OverviewImpl overviewImpl = new OverviewImpl(Analytics.context);
+        String netIncomeLastMonth = overviewImpl.getNetIncomeLastMonth();
+        String netIncomeCurrent = String.valueOf(overviewImpl.getLatestOverview().getNetIncome());
+        String netIncomeAverageThisYear = overviewImpl.calculateAverageNetIncome();
+
+        System.out.println("Average: "+netIncomeAverageThisYear);
+        System.out.println("Last Month: "+netIncomeLastMonth);
+        System.out.println("Current: "+netIncomeCurrent);
+
         ArrayList<BarEntry> yValues = new ArrayList<BarEntry>();
-        yValues.add(new BarEntry(1900, 0));
-        yValues.add(new BarEntry(1800, 1));
-        yValues.add(new BarEntry(1700, 2));
+        yValues.add(new BarEntry(Float.parseFloat(netIncomeAverageThisYear), 0));
+        yValues.add(new BarEntry(Float.parseFloat(netIncomeLastMonth), 1));
+        yValues.add(new BarEntry(Float.parseFloat(netIncomeCurrent), 2));
 
         ArrayList<String> xValues = new ArrayList<String>();
         xValues.add("Average");
@@ -171,16 +177,18 @@ public class OverviewTab extends Fragment {
         xValues.add("Present");
 
         BarDataSet dataSet = prepareBarDataSet(yValues);
-        BarData data = prepareLineData(xValues, dataSet);
+        BarData data = prepareBarData(xValues, dataSet);
         data.setDrawValues(false);
 
         barChart.setData(data);
     }
-    private BarData prepareLineData(ArrayList<String> xValues, BarDataSet dataSet) {
+
+    private BarData prepareBarData(ArrayList<String> xValues, BarDataSet dataSet) {
         BarData data = new BarData(xValues, dataSet);
         data.setValueTextSize(11f);
         return data;
     }
+
     private BarDataSet prepareBarDataSet(ArrayList<BarEntry> yVals) {
         BarDataSet dataSet = new BarDataSet(yVals, "Month, Average, Present");
         dataSet.setColor(Color.parseColor(barChartBarColor));

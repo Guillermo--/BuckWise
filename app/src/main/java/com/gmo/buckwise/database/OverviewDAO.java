@@ -236,6 +236,7 @@ public class OverviewDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         String netIncome = "";
         int year = Calendar.getInstance().get(Calendar.YEAR);
         String sql = "SELECT MAX(strftime('%d', date)), net_income FROM overview WHERE strftime('%Y', date) = '"+year+"' AND strftime('%m', date) = '"+month+"' ORDER BY strftime('%d', date) DESC;";
@@ -243,6 +244,7 @@ public class OverviewDAO {
         if(cursor.moveToFirst()){
             netIncome = cursor.getString(1);
         }
+
 
         database.close();
         return netIncome;
@@ -258,7 +260,7 @@ public class OverviewDAO {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         String sql = "SELECT DISTINCT strftime('%m', date) FROM overview WHERE strftime('%Y', date) = '"+year+"' ORDER BY strftime('%m', date) ASC;";
         Cursor cursor = database.rawQuery(sql, null);
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()){
             while(!cursor.isAfterLast()) {
                 months.add(cursor.getString(0));
                 cursor.moveToNext();
@@ -268,5 +270,36 @@ public class OverviewDAO {
         return months;
     }
 
+    public String getNetIncomeFromLastMonth() {
+        try {
+            open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        String netIncomeLastMonth = "";
+        String lastMonth = "";
+        String sql = "SELECT DISTINCT strftime('%m', date) FROM overview WHERE strftime('%Y', date) = '"+year+"' ORDER BY strftime('%m', date) DESC";
+        Cursor cursor = database.rawQuery(sql, null);
 
+        if (cursor.moveToFirst() && cursor.getCount() >= 2) {
+            cursor.moveToNext();
+            lastMonth = cursor.getString(0);
+        }
+
+        if(lastMonth != null) {
+            sql = "SELECT MAX(strftime('%d', date)), net_income FROM overview WHERE strftime('%Y', date) = '" + year + "' AND strftime('%m', date) = '" + lastMonth + "'";
+            cursor = database.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    netIncomeLastMonth = cursor.getString(1);
+                    cursor.moveToNext();
+                }
+            }
+        }
+
+        close();
+        return netIncomeLastMonth;
+    }
 }

@@ -63,10 +63,27 @@ public class OverviewImpl extends Overview {
         return monthsAndIncome;
     }
 
-    public void calculateAverageNetIncome(){
-        //How many months have passed?
-        //Calculate average net income every 1st of month
-        //old ((latestAverageNetIncomeFromPreviousMonth * monthsPassed) + latestAverageNetIncomeFromCurrentMonth) / monthsPassed
+    public String getNetIncomeLastMonth() {
+        String netIncomeLastMonth = overviewDao.getNetIncomeFromLastMonth();
+        if(netIncomeLastMonth.isEmpty() || netIncomeLastMonth == null) {
+            netIncomeLastMonth = "0";
+        }
+
+        return netIncomeLastMonth;
+    }
+
+    public String calculateAverageNetIncome(){
+        ArrayList<String> months = new ArrayList<String>();
+        months = overviewDao.getPastMonthsWithDataThisYear();
+        int sum = 0;
+        int averageNetIncome= 0;
+
+        for(int i = 0; i < months.size(); i++) {
+            sum += Integer.parseInt(overviewDao.getLastNetIncomeForMonthThisYear(months.get(i)));
+        }
+
+        averageNetIncome = sum/ months.size();
+        return String.valueOf(averageNetIncome);
     }
 
 }
