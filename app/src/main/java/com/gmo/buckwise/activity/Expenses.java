@@ -136,9 +136,9 @@ public class Expenses extends AppCompatActivity {
     private void setExpenseData(){
         ExpensesImpl expensesImpl = new ExpensesImpl(context);
 
-        expensesTotalAmount.setText(util.doubleToCurrency(expense.getExpenseTotal()));
-        expensesAverageAmount.setText(util.doubleToCurrency(Double.parseDouble(expensesImpl.calculateAverageExpenses())));
-        expensesLastMonthAmount.setText(util.doubleToCurrency(Double.parseDouble(expensesImpl.calculateExpensesLastMonth())));
+        expensesTotalAmount.setText(Util.doubleToCurrency(expense.getExpenseTotal()));
+        expensesAverageAmount.setText(Util.doubleToCurrency(Double.parseDouble(expensesImpl.calculateAverageExpenses())));
+        expensesLastMonthAmount.setText(Util.doubleToCurrency(Double.parseDouble(expensesImpl.calculateExpensesLastMonth())));
     }
 
     private void getExpenseData(){
@@ -147,15 +147,15 @@ public class Expenses extends AppCompatActivity {
     }
 
     private void setTypefaces(){
-        navigationDrawerTitle.setTypeface(util.typefaceRobotoLight);
-        expensesTotalTitle.setTypeface(util.typefaceRobotoLight);
-        expensesTotalAmount.setTypeface(util.typefaceRobotoLight);
-        expensesAverageTitle.setTypeface(util.typefaceRobotoLight);
-        expensesAverageAmount.setTypeface(util.typefaceRobotoLight);
-        expensesLastMonthTitle.setTypeface(util.typefaceRobotoLight);
-        expensesLastMonthAmount.setTypeface(util.typefaceRobotoLight);
-        expenseHelperMessage.setTypeface(util.typefaceRobotoMedium);
-        navigationDrawerTitle.setTypeface(util.typefaceBadScript, Typeface.BOLD);
+        navigationDrawerTitle.setTypeface(Util.typefaceRobotoLight);
+        expensesTotalTitle.setTypeface(Util.typefaceRobotoLight);
+        expensesTotalAmount.setTypeface(Util.typefaceRobotoLight);
+        expensesAverageTitle.setTypeface(Util.typefaceRobotoLight);
+        expensesAverageAmount.setTypeface(Util.typefaceRobotoLight);
+        expensesLastMonthTitle.setTypeface(Util.typefaceRobotoLight);
+        expensesLastMonthAmount.setTypeface(Util.typefaceRobotoLight);
+        expenseHelperMessage.setTypeface(Util.typefaceRobotoMedium);
+        navigationDrawerTitle.setTypeface(Util.typefaceBadScript, Typeface.BOLD);
 
     }
 
@@ -291,8 +291,8 @@ public class Expenses extends AppCompatActivity {
     private void setPieData(){
         ExpensesImpl expenseImpl = new ExpensesImpl(context);
         expense = expenseImpl.getLatestExpenses();
-        ArrayList<Entry> yValues = new ArrayList<Entry>();//amount
-        ArrayList<String> xValues = new ArrayList<String>();//category
+        ArrayList<Entry> yValues = new ArrayList<>();//amount
+        ArrayList<String> xValues = new ArrayList<>();//category
 
         Map<String, Double> map = expense.getExpenseCategoryAndAmount();
         int index = 0;
@@ -311,7 +311,7 @@ public class Expenses extends AppCompatActivity {
         PieData data = new PieData(xValues, dataSet);
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.WHITE);
-        data.setValueTypeface(util.typefaceRobotoLight);
+        data.setValueTypeface(Util.typefaceRobotoLight);
         return data;
     }
 
@@ -325,7 +325,7 @@ public class Expenses extends AppCompatActivity {
     }
 
     private ArrayList<Integer> setPieChartColors() {
-        ArrayList<Integer> colors = new ArrayList<Integer>();
+        ArrayList<Integer> colors = new ArrayList<>();
         colors.add(Color.parseColor("#26A69A"));
         colors.add(Color.parseColor("#26C6DA"));
         colors.add(Color.parseColor("#29B6F6"));

@@ -181,12 +181,12 @@ public class Dashboard extends AppCompatActivity {
         income.setText(Util.doubleToCurrency(overview.getIncome()));
         netIncome.setText(Util.doubleToCurrency(overview.getNetIncome()));
         expenses.setText(Util.doubleToCurrency(overview.getExpenses()));
-        bank.setText(Util.doubleToCurrency(overview.getBank()));
 
         OverviewImpl overviewImpl = new OverviewImpl(context);
         averageNetIncome.setText(Util.doubleToCurrency(Double.parseDouble(overviewImpl.calculateAverageNetIncome())));
         lastMonthNetIncome.setText(Util.doubleToCurrency(Double.parseDouble(overviewImpl.calculateNetIncomeLastMonth())));
-
+        bank.setText(Util.doubleToCurrency(Double.parseDouble(overviewImpl.calculateInBank())));
+        
         ExpensesImpl expensesImpl = new ExpensesImpl(context);
         expenses.setText(Util.doubleToCurrency(expensesImpl.getTotalExpensesAmount()));
     }

@@ -65,8 +65,7 @@ public class OverviewImpl extends Overview {
     }
 
     public String calculateAverageNetIncome(){
-        ArrayList<String> months = new ArrayList<String>();
-        months = overviewDao.getPastMonthsWithDataThisYear();
+        ArrayList<String> months = overviewDao.getPastMonthsWithDataThisYear();
         int sum = 0;
         int averageNetIncome= 0;
 
@@ -80,6 +79,20 @@ public class OverviewImpl extends Overview {
 
         averageNetIncome = sum/ months.size();
         return String.valueOf(averageNetIncome);
+    }
+
+    public String calculateInBank() {
+        ArrayList<String> months = overviewDao.getPastMonthsWithDataThisYear();
+        int inBank = 0;
+        if(months.size() < 1) {
+            return "0";
+        }
+
+        for(int i = 0; i<months.size(); i++) {
+            inBank += Integer.parseInt(overviewDao.getLastNetIncomeForMonth(months.get(i)));
+        }
+
+        return String.valueOf(inBank);
     }
 
 }

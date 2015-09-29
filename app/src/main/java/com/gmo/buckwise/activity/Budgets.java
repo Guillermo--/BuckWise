@@ -9,12 +9,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
@@ -99,7 +97,7 @@ public class Budgets extends ActionBarActivity {
         progressBarTitle.setTypeface(Util.typefaceRobotoRegular);
         progressBarAmountAvailable.setTypeface(Util.typefaceRobotoLight);
         progressBarAmountStartedWith.setTypeface(Util.typefaceRobotoLight);
-        navigationDrawerTitle.setTypeface(util.typefaceBadScript, Typeface.BOLD);
+        navigationDrawerTitle.setTypeface(Util.typefaceBadScript, Typeface.BOLD);
 
     }
 
@@ -131,16 +129,15 @@ public class Budgets extends ActionBarActivity {
             public void onClick(View view) {
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
                 final View inputDialog = layoutInflater.inflate(R.layout.inputdialog_create_budget, null);
-                ((TextView) inputDialog.findViewById(R.id.budgetInputDialog_title)).setTypeface(util.typefaceRobotoMedium);
+                ((TextView) inputDialog.findViewById(R.id.budgetInputDialog_title)).setTypeface(Util.typefaceRobotoMedium);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                 alertDialogBuilder.setView(inputDialog);
 
                 final AlertDialog alertDialog = alertDialogBuilder.create();
-                Button add = (Button) inputDialog.findViewById(R.id.budgetInputDialog_buttonAdd);
+                Button createButton = (Button) inputDialog.findViewById(R.id.budgetInputDialog_buttonAdd);
                 Button cancel = (Button) inputDialog.findViewById(R.id.budgetInputDialog_buttonCancel);
                 final EditText inputCategory = (EditText) inputDialog.findViewById(R.id.budgetInputDialog_inputCategory);
                 final EditText inputAmount = (EditText) inputDialog.findViewById(R.id.budgetInputDialog_inputAmount);
-                final Button createButton = (Button) inputDialog.findViewById(R.id.budgetInputDialog_buttonAdd);
                 createButton.setText("Ok");
 
                 cancel.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +147,7 @@ public class Budgets extends ActionBarActivity {
                     }
                 });
 
-                add.setOnClickListener(new View.OnClickListener() {
+                createButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String inputCategoryStr = inputCategory.getText().toString();
