@@ -230,7 +230,7 @@ public class OverviewDAO {
         close();
     }
 
-    public String getLastNetIncomeForMonthThisYear(String month) {
+    public String getLastNetIncomeForMonth(String month) {
         try {
             open();
         } catch (SQLException e) {
@@ -244,7 +244,6 @@ public class OverviewDAO {
         if(cursor.moveToFirst()){
             netIncome = cursor.getString(1);
         }
-
 
         database.close();
         return netIncome;

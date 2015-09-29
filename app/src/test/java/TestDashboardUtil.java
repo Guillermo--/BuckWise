@@ -24,4 +24,11 @@ public class TestDashboardUtil {
         String actual = du.getDayOfMonth();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testGetDayOfWeek() {
+        String expected = "Sat";
+        String actual = du.getDayOfWeek();
+        assertEquals(expected, actual);
+    }
 }

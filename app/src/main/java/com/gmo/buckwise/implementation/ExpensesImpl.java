@@ -11,6 +11,7 @@ import com.gmo.buckwise.model.Budget;
 import com.gmo.buckwise.model.Expense;
 import com.gmo.buckwise.util.Util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -186,6 +187,35 @@ public class ExpensesImpl {
         overviewDAO.updateNetIncome(getTotalExpensesAmount());
 
         return expense;
+    }
+
+    public ArrayList<String> getPastMonthsWithDataThisYear() {
+        ArrayList<String> pastMonthsWithData = expensesDAO.getPastMonthsWithDataThisYear();
+        return pastMonthsWithData;
+    }
+
+    public String getLatestExpenseTotalForMonth(String month) {
+        String latestExpenseTotal = expensesDAO.getLatestExpenseTotalsForMonth(month);
+        return latestExpenseTotal;
+    }
+
+    public String calculateExpensesLastMonth() {
+        String expensesLastMonth = expensesDAO.getExpensesFromLastMonth();
+        if(expensesLastMonth == null|| expensesLastMonth.isEmpty()) {
+            expensesLastMonth = "0";
+        }
+        return expensesLastMonth;
+    }
+
+    public String calculateAverageExpenses(){
+        ArrayList<String> months = expensesDAO.getPastMonthsWithDataThisYear();
+        int sum = 0;
+        int averageExpense = 0;
+        for(int i = 0; i<months.size(); i++) {
+            sum += Integer.parseInt(expensesDAO.getLatestExpenseTotalsForMonth(months.get(i)));
+        }
+        averageExpense = sum/ months.size();
+        return String.valueOf(averageExpense);
     }
 
 

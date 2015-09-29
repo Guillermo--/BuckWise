@@ -29,9 +29,6 @@ public class TabsFragmentAdapter extends FragmentStatePagerAdapter {
             case 1:
                 ExpensesTab et = new ExpensesTab();
                 return et;
-            case 2:
-                BudgetsTab bt = new BudgetsTab();
-                return bt;
             default:
                 return null;
         }

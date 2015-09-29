@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -42,7 +43,7 @@ public class Util {
 
     public String getCurrentMonth() {
         Calendar cal = Calendar.getInstance();
-        return new SimpleDateFormat("MMMM").format(cal.getTime());
+        return new SimpleDateFormat("MMM").format(cal.getTime());
     }
 
     public String getDayOfMonth() {
@@ -51,9 +52,9 @@ public class Util {
     }
 
     public String getDayOfWeek(){
-        Format formatter = new SimpleDateFormat("EEEE");
-        return formatter.format(new Date());
-
+        Calendar calendar = Calendar.getInstance();
+        String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US);
+        return dayOfWeek;
     }
 
     public String getDaysString(){

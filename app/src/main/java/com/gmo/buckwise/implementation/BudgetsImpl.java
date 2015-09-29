@@ -123,16 +123,13 @@ public class BudgetsImpl {
         return budget;
     }
 
-    public Budget editBudgetCategoryAndInitialAmount(String category, String inputCategory, String inputAmount){
+    public Budget editBudgetCategoryAndInitialAmount(String category, String inputAmount){
         Budget budget = getLatestBudget();
         BudgetsDAO budgetsDao = new BudgetsDAO(context);
         List<String> categories = Arrays.asList(budget.getCategories().split(","));
         List<String> initialAmounts = Arrays.asList(budget.getInitialAmounts().split(","));
         int targetIndex = categories.indexOf(category);
 
-        if(inputCategory != null && !inputCategory.isEmpty()){
-            categories.set(targetIndex, inputCategory);
-        }
         if(inputAmount != null && !inputAmount.isEmpty()){
             initialAmounts.set(targetIndex, inputAmount);
         }

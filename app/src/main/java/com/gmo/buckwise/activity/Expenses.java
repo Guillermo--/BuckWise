@@ -8,7 +8,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -135,9 +134,11 @@ public class Expenses extends AppCompatActivity {
     }
 
     private void setExpenseData(){
+        ExpensesImpl expensesImpl = new ExpensesImpl(context);
+
         expensesTotalAmount.setText(util.doubleToCurrency(expense.getExpenseTotal()));
-        expensesAverageAmount.setText(util.doubleToCurrency(expense.getExpenseAverage()));
-        expensesLastMonthAmount.setText(util.doubleToCurrency(expense.getExpenseLastMonth()));
+        expensesAverageAmount.setText(util.doubleToCurrency(Double.parseDouble(expensesImpl.calculateAverageExpenses())));
+        expensesLastMonthAmount.setText(util.doubleToCurrency(Double.parseDouble(expensesImpl.calculateExpensesLastMonth())));
     }
 
     private void getExpenseData(){
@@ -207,14 +208,24 @@ public class Expenses extends AppCompatActivity {
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ExpensesImpl expenseImpl = new ExpensesImpl(context);
-                        getExpenseData();
-                        expense = expenseImpl.addCategoryAndAmount(expense, inputCategory.getText().toString(), inputAmount.getText().toString());
-                        alertDialog.dismiss();
-                        handleHelperMessage();
-                        adapter.refreshListData(listValues);
-                        ((BaseAdapter) expensesList.getAdapter()).notifyDataSetChanged();
-                        expensesTotalAmount.setText(util.doubleToCurrency(expense.getExpenseTotal()));
+
+                        if(!inputCategory.getText().toString().isEmpty()) {
+                            if(inputAmount.getText().toString().isEmpty() && !inputCategory.getText().toString().isEmpty()) {
+                                inputAmount.setText("0");
+                            }
+
+                            ExpensesImpl expenseImpl = new ExpensesImpl(context);
+                            getExpenseData();
+                            expense = expenseImpl.addCategoryAndAmount(expense, inputCategory.getText().toString(), inputAmount.getText().toString());
+                            alertDialog.dismiss();
+                            handleHelperMessage();
+                            adapter.refreshListData(listValues);
+                            ((BaseAdapter) expensesList.getAdapter()).notifyDataSetChanged();
+                            expensesTotalAmount.setText(util.doubleToCurrency(expense.getExpenseTotal()));
+                        }
+                        else {
+                            alertDialog.dismiss();
+                        }
                     }
                 });
                 alertDialog.show();

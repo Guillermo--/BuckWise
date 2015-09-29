@@ -157,18 +157,14 @@ public class BudgetListArrayAdapter extends BaseAdapter{
         final View inputDialog = inflateEditDialogLayout();
         final AlertDialog alertDialog = createAlertDialog(inputDialog);
         String dialogTitle = "Edit " + rowName + " - " + rowCurrentAmountSpent;
-        TextView dialogTitleView = (TextView) inputDialog.findViewById(R.id.budgetInputDialog_title);
+        TextView dialogTitleView = (TextView) inputDialog.findViewById(R.id.inputDialog_edit_title);
         dialogTitleView.setText(dialogTitle);
-        Button add = (Button) inputDialog.findViewById(R.id.budgetInputDialog_buttonAdd);
-        Button cancel = (Button) inputDialog.findViewById(R.id.budgetInputDialog_buttonCancel);
-        final EditText inputAmount = (EditText) inputDialog.findViewById(R.id.budgetInputDialog_inputAmount);
-        final EditText inputCategory = (EditText)inputDialog.findViewById(R.id.budgetInputDialog_inputCategory);
-        final TextView inputAmountTitle = (TextView)inputDialog.findViewById(R.id.budgetInputDialog_amountTitle);
+        Button edit = (Button) inputDialog.findViewById(R.id.inputDialog_edit_buttonAdd);
+        edit.setText("Edit");
+        Button cancel = (Button) inputDialog.findViewById(R.id.inputDialog_edit_buttonCancel);
+        final EditText inputAmount = (EditText) inputDialog.findViewById(R.id.inputDialog_edit_inputAmount);
+        final TextView inputAmountTitle = (TextView)inputDialog.findViewById(R.id.inputDialog_edit_message);
         inputAmountTitle.setText("New initial amount");
-        final TextView inputCategoryTitle = (TextView)inputDialog.findViewById(R.id.budgetInputDialog_category_title);
-        inputCategoryTitle.setText("New category name");
-        final Button editBudget = (Button)inputDialog.findViewById(R.id.budgetInputDialog_buttonAdd);
-        editBudget.setText("Edit");
         dialogTitleView.setTypeface(util.typefaceRobotoMedium);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,12 +173,12 @@ public class BudgetListArrayAdapter extends BaseAdapter{
             }
         });
 
-        add.setOnClickListener(new View.OnClickListener() {
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BudgetsImpl budgetsImpl = new BudgetsImpl(context);
                 Budgets budgetsActivity = new Budgets();
-                Budget budget = budgetsImpl.editBudgetCategoryAndInitialAmount(rowName, inputCategory.getText().toString(), inputAmount.getText().toString());
+                Budget budget = budgetsImpl.editBudgetCategoryAndInitialAmount(rowName, inputAmount.getText().toString());
                 refreshListData(budgetsActivity.getMapForBudgetListAdapter(budget.getCategories(), budget.getAmountsSpent(), budget.getInitialAmounts()));
                 ((BaseAdapter)Budgets.budgetList.getAdapter()).notifyDataSetChanged();
 
@@ -260,7 +256,7 @@ public class BudgetListArrayAdapter extends BaseAdapter{
 
     private View inflateEditDialogLayout() {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        return layoutInflater.inflate(R.layout.inputdialog_create_budget, null);
+        return layoutInflater.inflate(R.layout.inputdialog_edit_expense, null);
     }
 
     private View inflateDeleteDialogLayout(){

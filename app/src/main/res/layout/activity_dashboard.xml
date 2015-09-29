@@ -20,7 +20,7 @@
                 android:minHeight="?attr/actionBarSize"
                 android:background="@color/statusBar"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="230dp"
                 android:elevation="2dp"
                 android:id="@+id/expense_toolbarBig">
                 <android.support.v7.widget.Toolbar
@@ -50,42 +50,43 @@
                             android:layout_toRightOf="@id/expense_iconHamburger"
                             android:layout_marginStart="15dp"
                             android:layout_centerInParent="true"/>
-                        <ImageButton
-                            android:id="@+id/dashboard_iconCalendar"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@null"
-                            android:scaleType="fitCenter"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="16dp"
-                            android:layout_centerInParent="true"
-                            android:tint="@color/textLight"
-                            android:src="@drawable/ic_calendar_blank_grey600_24dp"/>
+
                     </RelativeLayout>
                 </android.support.v7.widget.Toolbar>
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginStart="38dp"
                     android:layout_below="@+id/expense_toolbarSmall">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="04"
+                        android:textColor="@color/textLight"
+                        android:textSize="60sp"
+                        android:id="@+id/dashboard_dateDay"
+                        android:layout_centerHorizontal="true" />
+                    <TextView
+                        android:id="@+id/dashboard_dateDayName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sat"
+                        android:textSize="18sp"
+                        android:textColor="@color/textLight"
+                        android:layout_toRightOf="@id/dashboard_dateDay"
+                        android:layout_marginTop="25dp"/>
                     <TextView
                         android:id="@+id/dashboard_dateMonth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="February"
-                        android:textSize="20sp"
-                        android:layout_centerHorizontal="true"
+                        android:text="Feb"
+                        android:textSize="18sp"
+                        android:layout_toRightOf="@id/dashboard_dateDay"
+                        android:layout_alignBaseline="@id/dashboard_dateDay"
                         android:textColor="@color/textLight" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Monday, 04"
-                        android:textColor="@color/textLight"
-                        android:textSize="20sp"
-                        android:id="@+id/dashboard_dateDays"
-                        android:layout_below="@+id/dashboard_dateMonth"/>
+
+
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -95,7 +96,7 @@
                 android:layout_width="340dp"
                 android:layout_height="160dp"
                 card_view:cardCornerRadius="4dp"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="150dp"
                 android:elevation="3dp">
                 <RelativeLayout
                     android:layout_width="match_parent"

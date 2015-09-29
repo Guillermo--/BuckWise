@@ -1,14 +1,12 @@
 package com.gmo.buckwise.implementation;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.gmo.buckwise.database.OverviewDAO;
 import com.gmo.buckwise.model.Overview;
 import com.gmo.buckwise.util.Util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -48,27 +46,21 @@ public class OverviewImpl extends Overview {
         return income - expenses;
     }
 
-    public Map<String, String> getPreviousNetIncomesThisYear() {
-        ArrayList<String> months = new ArrayList<>();
-        Map<String, String> monthsAndIncome = new LinkedHashMap<String, String>();
-        months = overviewDao.getPastMonthsWithDataThisYear();
-
-        for(int i = 0; i<months.size(); i++) {
-            String netIncome = overviewDao.getLastNetIncomeForMonthThisYear(months.get(i));
-            String monthString = Util.monthNumberToString(months.get(i));
-            monthsAndIncome.put(monthString, netIncome);
-
-            System.out.println("------------" + monthString + ", " + netIncome);
-        }
-        return monthsAndIncome;
+    public ArrayList<String> getPastMonthsWithDataThisYear() {
+        ArrayList<String> months = overviewDao.getPastMonthsWithDataThisYear();
+        return months;
     }
 
-    public String getNetIncomeLastMonth() {
+    public String getLastNetIncomeFromMonthThisYear(String month) {
+        String lastNetIncome = overviewDao.getLastNetIncomeForMonth(month);
+        return lastNetIncome;
+    }
+
+    public String calculateNetIncomeLastMonth() {
         String netIncomeLastMonth = overviewDao.getNetIncomeFromLastMonth();
-        if(netIncomeLastMonth.isEmpty() || netIncomeLastMonth == null) {
+        if(netIncomeLastMonth == null || netIncomeLastMonth.isEmpty()) {
             netIncomeLastMonth = "0";
         }
-
         return netIncomeLastMonth;
     }
 
@@ -78,8 +70,12 @@ public class OverviewImpl extends Overview {
         int sum = 0;
         int averageNetIncome= 0;
 
+        if(months.size() < 1){
+            return "0";
+        }
+
         for(int i = 0; i < months.size(); i++) {
-            sum += Integer.parseInt(overviewDao.getLastNetIncomeForMonthThisYear(months.get(i)));
+            sum += Integer.parseInt(overviewDao.getLastNetIncomeForMonth(months.get(i)));
         }
 
         averageNetIncome = sum/ months.size();

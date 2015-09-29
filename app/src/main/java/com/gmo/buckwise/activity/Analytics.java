@@ -40,7 +40,6 @@ public class Analytics extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.addTab(tabLayout.newTab().setText("Net Income"));
         tabLayout.addTab(tabLayout.newTab().setText("Expenses"));
-        tabLayout.addTab(tabLayout.newTab().setText("Budget"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);

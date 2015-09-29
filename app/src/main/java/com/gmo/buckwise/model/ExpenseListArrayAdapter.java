@@ -86,15 +86,13 @@ public class ExpenseListArrayAdapter extends BaseAdapter {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         String rowName = ((TextView) row.findViewById(R.id.expenseList_itemName)).getText().toString();
-                        String rowAmount = ((TextView)row.findViewById(R.id.expenseList_itemAmount)).getText().toString();
+                        String rowAmount = ((TextView) row.findViewById(R.id.expenseList_itemAmount)).getText().toString();
 
                         if (menuItem.getTitle().equals("Add")) {
                             handleAddToExpense(rowName, rowAmount);
-                        }
-                        else if (menuItem.getTitle().equals("Edit")){
+                        } else if (menuItem.getTitle().equals("Edit")) {
                             handleEditExpense(rowName, rowAmount);
-                        }
-                        else if (menuItem.getTitle().equals("Delete")){
+                        } else if (menuItem.getTitle().equals("Delete")) {
                             handleDeleteExpense(rowName, rowAmount);
                         }
                         return true;
@@ -132,6 +130,13 @@ public class ExpenseListArrayAdapter extends BaseAdapter {
                 ((BaseAdapter)Expenses.expensesList.getAdapter()).notifyDataSetChanged();
                 Expenses.expensesTotalAmount.setText(Util.doubleToCurrency(updatedExpense.getExpenseTotal()));
 
+                BudgetsImpl budgetsImpl = new BudgetsImpl(context);
+                Budget latestBudget = budgetsImpl.getLatestBudget();
+                String latestCategories = latestBudget.getCategories();
+                if(latestCategories.contains(rowName)) {
+                    budgetsImpl.deleteBudget(rowName);
+                }
+
                 alertDialog.dismiss();
             }
         });
@@ -146,7 +151,8 @@ public class ExpenseListArrayAdapter extends BaseAdapter {
         TextView dialogTitleView = (TextView) inputDialog.findViewById(R.id.inputDialog_edit_title);
         dialogTitleView.setTypeface(util.typefaceRobotoMedium);
         dialogTitleView.setText(dialogTitle);
-        Button add = (Button) inputDialog.findViewById(R.id.inputDialog_edit_buttonAdd);
+        Button edit = (Button) inputDialog.findViewById(R.id.inputDialog_edit_buttonAdd);
+        edit.setText("Edit");
         Button cancel = (Button) inputDialog.findViewById(R.id.inputDialog_edit_buttonCancel);
         final EditText input = (EditText) inputDialog.findViewById(R.id.inputDialog_edit_inputAmount);
 
@@ -157,15 +163,20 @@ public class ExpenseListArrayAdapter extends BaseAdapter {
             }
         });
 
-        add.setOnClickListener(new View.OnClickListener() {
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ExpensesImpl expenseImpl = new ExpensesImpl(context);
-                Expense updatedExpense = expenseImpl.editExpenseAmount(expenseImpl.getLatestExpenses(), rowName, input.getText().toString());
-                refreshListData(updatedExpense.getExpenseCategoryAndAmount());
-                ((BaseAdapter)Expenses.expensesList.getAdapter()).notifyDataSetChanged();
-                Expenses.expensesTotalAmount.setText(Util.doubleToCurrency(updatedExpense.getExpenseTotal()));
-                alertDialog.dismiss();
+                if(!input.getText().toString().isEmpty()) {
+                    ExpensesImpl expenseImpl = new ExpensesImpl(context);
+                    Expense updatedExpense = expenseImpl.editExpenseAmount(expenseImpl.getLatestExpenses(), rowName, input.getText().toString());
+                    refreshListData(updatedExpense.getExpenseCategoryAndAmount());
+                    ((BaseAdapter) Expenses.expensesList.getAdapter()).notifyDataSetChanged();
+                    Expenses.expensesTotalAmount.setText(Util.doubleToCurrency(updatedExpense.getExpenseTotal()));
+                    alertDialog.dismiss();
+                }
+                else {
+                    alertDialog.dismiss();
+                }
             }
         });
 
@@ -193,21 +204,26 @@ public class ExpenseListArrayAdapter extends BaseAdapter {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ExpensesImpl expenseImpl = new ExpensesImpl(context);
-                Expense expense = expenseImpl.addCategoryAndAmount(expenseImpl.getLatestExpenses(), rowName, input.getText().toString());
-                refreshListData(expense.getExpenseCategoryAndAmount());
-                ((BaseAdapter)Expenses.expensesList.getAdapter()).notifyDataSetChanged();
-                Expenses.expensesTotalAmount.setText(Util.doubleToCurrency(expense.getExpenseTotal()));
+                if(!input.getText().toString().isEmpty()) {
+                    ExpensesImpl expenseImpl = new ExpensesImpl(context);
+                    Expense expense = expenseImpl.addCategoryAndAmount(expenseImpl.getLatestExpenses(), rowName, input.getText().toString());
+                    refreshListData(expense.getExpenseCategoryAndAmount());
+                    ((BaseAdapter) Expenses.expensesList.getAdapter()).notifyDataSetChanged();
+                    Expenses.expensesTotalAmount.setText(Util.doubleToCurrency(expense.getExpenseTotal()));
 
-                //reflect changes on Budget activity if applicable
-                BudgetsImpl budgetsImpl = new BudgetsImpl(context);
-                Budget budget = budgetsImpl.getLatestBudget();
-                String budgetCategories = budget.getCategories();
-                if (budgetCategories.contains(rowName)) {
-                    budgetsImpl.logBudgetExpense(rowName, input.getText().toString());
+                    //reflect changes on Budget activity if applicable
+                    BudgetsImpl budgetsImpl = new BudgetsImpl(context);
+                    Budget budget = budgetsImpl.getLatestBudget();
+                    String budgetCategories = budget.getCategories();
+                    if (budgetCategories.contains(rowName)) {
+                        budgetsImpl.logBudgetExpense(rowName, input.getText().toString());
+                    }
+
+                    alertDialog.dismiss();
                 }
-
-                alertDialog.dismiss();
+                else {
+                    alertDialog.dismiss();
+                }
             }
         });
         alertDialog.show();

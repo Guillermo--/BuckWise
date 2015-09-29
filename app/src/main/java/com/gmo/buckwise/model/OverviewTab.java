@@ -2,33 +2,28 @@ package com.gmo.buckwise.model;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.gmo.buckwise.R;
 import com.gmo.buckwise.activity.Analytics;
 import com.gmo.buckwise.implementation.OverviewImpl;
+import com.gmo.buckwise.util.Util;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Created by GMO on 9/15/2015.
@@ -85,14 +80,20 @@ public class OverviewTab extends Fragment {
 
     private void setLineChartData() {
         OverviewImpl overviewImpl = new OverviewImpl(Analytics.context);
-        Map<String, String> netIncomeDateMap = overviewImpl.getPreviousNetIncomesThisYear();
+        ArrayList<String> monthsWithDataThisYear = overviewImpl.getPastMonthsWithDataThisYear();
         ArrayList<String> xValues = new ArrayList<>();
         ArrayList<Entry> yValues = new ArrayList<>();
         int count = 0;
-        for(String key : netIncomeDateMap.keySet()){
-            xValues.add(key);
-            yValues.add(new Entry(Float.parseFloat(netIncomeDateMap.get(key)), count));
+
+        for(int i = 0; i<monthsWithDataThisYear.size(); i++){
+            String month = monthsWithDataThisYear.get(i);
+            String netIncome = overviewImpl.getLastNetIncomeFromMonthThisYear(month);
+            xValues.add(Util.monthNumberToString(month));
+            yValues.add(new Entry(Float.parseFloat(netIncome), count));
             count++;
+
+            System.out.println("MONTHS WITH NET INCOMES:" + month +", "+netIncome);
+
         }
 
         LineDataSet dataSet = prepareLineDataSet(yValues);
@@ -158,7 +159,7 @@ public class OverviewTab extends Fragment {
 
     private void setBarChartData() {
         OverviewImpl overviewImpl = new OverviewImpl(Analytics.context);
-        String netIncomeLastMonth = overviewImpl.getNetIncomeLastMonth();
+        String netIncomeLastMonth = overviewImpl.calculateNetIncomeLastMonth();
         String netIncomeCurrent = String.valueOf(overviewImpl.getLatestOverview().getNetIncome());
         String netIncomeAverageThisYear = overviewImpl.calculateAverageNetIncome();
 

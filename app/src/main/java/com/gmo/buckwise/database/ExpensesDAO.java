@@ -11,6 +11,7 @@ import com.gmo.buckwise.util.Util;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -164,7 +165,7 @@ public class ExpensesDAO {
         }
         int colCount = columnArray.length;
         System.out.println("-----------------------------------EXPENSES------------------------------");
-        System.out.println(colNames+"   |   ");
+        System.out.println(colNames + "   |   ");
 
         String sql = "SELECT * FROM "+tableName;
         cursor = database.rawQuery(sql, null);
@@ -191,5 +192,77 @@ public class ExpensesDAO {
         }
         cursor.close();
         close();
+    }
+
+    public ArrayList<String> getPastMonthsWithDataThisYear() {
+        try {
+            open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String> months = new ArrayList<String>();
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        String sql = "SELECT DISTINCT strftime('%m', date) FROM expenses WHERE strftime('%Y', date) = '"+year+"' ORDER BY strftime('%m', date) ASC;";
+        Cursor cursor = database.rawQuery(sql, null);
+        if (cursor.moveToFirst()){
+            while(!cursor.isAfterLast()) {
+                months.add(cursor.getString(0));
+                cursor.moveToNext();
+            }
+        }
+        database.close();
+        return months;
+    }
+
+    public String getLatestExpenseTotalsForMonth(String month) {
+        try {
+            open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String netIncome = "";
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        String sql = "SELECT MAX(strftime('%d', date)), expense_total FROM expenses WHERE strftime('%Y', date) = '"+year+"' AND strftime('%m', date) = '"+month+"' ORDER BY strftime('%d', date) DESC;";
+        Cursor cursor = database.rawQuery(sql, null);
+        if(cursor.moveToFirst()){
+            netIncome = cursor.getString(1);
+        }
+
+        database.close();
+        return netIncome;
+    }
+
+    public String getExpensesFromLastMonth() {
+        try {
+            open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        String expensesLastMonth = "";
+        String lastMonth = "";
+        String sql = "SELECT DISTINCT strftime('%m', date) FROM expenses WHERE strftime('%Y', date) = '"+year+"' ORDER BY strftime('%m', date) DESC";
+        Cursor cursor = database.rawQuery(sql, null);
+
+        if (cursor.moveToFirst() && cursor.getCount() >= 2) {
+            cursor.moveToNext();
+            lastMonth = cursor.getString(0);
+        }
+
+        if(lastMonth != null) {
+            sql = "SELECT MAX(strftime('%d', date)), expense_total FROM expenses WHERE strftime('%Y', date) = '" + year + "' AND strftime('%m', date) = '" + lastMonth + "'";
+            cursor = database.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    expensesLastMonth = cursor.getString(1);
+                    cursor.moveToNext();
+                }
+            }
+        }
+
+        close();
+        return expensesLastMonth;
     }
 }
