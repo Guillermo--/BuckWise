@@ -41,12 +41,12 @@ public class Util {
     public static Typeface typefaceRobotoRegular = Typeface.createFromAsset(Dashboard.context.getAssets(),"fonts/Roboto-Regular.ttf");
     public static Typeface typefaceBadScript = Typeface.createFromAsset(Dashboard.context.getAssets(), "fonts/BadScript-Regular.ttf");
 
-    public String getCurrentMonth() {
+    public static String getCurrentMonth() {
         Calendar cal = Calendar.getInstance();
         return new SimpleDateFormat("MMM").format(cal.getTime());
     }
 
-    public String getDayOfMonth() {
+    public static String getDayOfMonth() {
         Calendar cal = Calendar.getInstance();
         return String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
     }

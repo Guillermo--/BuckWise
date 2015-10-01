@@ -9,10 +9,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.transition.Explode;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.LinearInterpolator;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
@@ -56,18 +60,22 @@ public class Budgets extends ActionBarActivity {
     ListView mDrawerList;
     public static DrawerLayout mDrawerLayout;
     public static ProgressBar mProgress;
+    String listValues;
+    TextView budgetsHelperMessage;
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_budgets);
         context = this;
 
         getBudgetData();
-
         initializeViews();
+        handleHelperMessage();
         setViews();
         setTypeFaces();
         setUpProgressBar();
@@ -75,6 +83,18 @@ public class Budgets extends ActionBarActivity {
         handleAddBudgetButton();
         setUpNavigationDrawer();
 
+    }
+
+    private void handleHelperMessage() {
+        listValues = budget.getCategories();
+        if (listValues.isEmpty()){
+            budgetsHelperMessage.setVisibility(View.VISIBLE);
+            budgetList.setVisibility(View.GONE);
+        }
+        else{
+            budgetsHelperMessage.setVisibility(View.GONE);
+            budgetList.setVisibility(View.VISIBLE);
+        }
     }
 
     public void initializeViews(){
@@ -86,6 +106,7 @@ public class Budgets extends ActionBarActivity {
         budgetList = (ListView)findViewById(R.id.budget_list);
         navigationDrawerTitle = (TextView)findViewById(R.id.navigationDrawer_title);
         mProgress = (ProgressBar) findViewById(R.id.budgets_progressBar);
+        budgetsHelperMessage = (TextView)findViewById(R.id.budgets_helper_message);
     }
 
     public void setViews(){
@@ -98,6 +119,7 @@ public class Budgets extends ActionBarActivity {
         progressBarAmountAvailable.setTypeface(Util.typefaceRobotoLight);
         progressBarAmountStartedWith.setTypeface(Util.typefaceRobotoLight);
         navigationDrawerTitle.setTypeface(Util.typefaceBadScript, Typeface.BOLD);
+        budgetsHelperMessage.setTypeface(Util.typefaceRobotoMedium);
 
     }
 
@@ -175,6 +197,7 @@ public class Budgets extends ActionBarActivity {
                                 Expense latestExpense = expensesImpl.getLatestExpenses();
                                 latestExpense.setDateCreated(Util.getCurrentDateTime());
                                 expensesImpl.addCategoryAndAmount(latestExpense, inputCategoryStr, "0.00");
+                                handleHelperMessage();
                             }
 
                             alertDialog.dismiss();

@@ -1,5 +1,7 @@
 package com.gmo.buckwise.model;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -44,7 +46,10 @@ public class NavigationDrawerItemClickListener implements ListView.OnItemClickLi
                     @Override
                     public void run() {
                         Intent intent = new Intent(context, Dashboard.class);
-                        context.startActivity(intent);                    }
+                        //context.startActivity(intent);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
+                        context.startActivity(intent, options.toBundle());
+                    }
                 }, 300);
             }
             else{

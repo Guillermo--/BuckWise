@@ -85,15 +85,21 @@ public class OverviewTab extends Fragment {
         ArrayList<Entry> yValues = new ArrayList<>();
         int count = 0;
 
-        for(int i = 0; i<monthsWithDataThisYear.size(); i++){
-            String month = monthsWithDataThisYear.get(i);
-            String netIncome = overviewImpl.getLastNetIncomeFromMonthThisYear(month);
-            xValues.add(Util.monthNumberToString(month));
-            yValues.add(new Entry(Float.parseFloat(netIncome), count));
-            count++;
+        if(monthsWithDataThisYear.size() > 0) {
+            for (int i = 0; i < monthsWithDataThisYear.size(); i++) {
+                String month = monthsWithDataThisYear.get(i);
+                String netIncome = overviewImpl.getLastNetIncomeFromMonthThisYear(month);
+                xValues.add(Util.monthNumberToString(month));
+                yValues.add(new Entry(Float.parseFloat(netIncome), count));
+                count++;
 
-            System.out.println("MONTHS WITH NET INCOMES:" + month +", "+netIncome);
+                System.out.println("MONTHS WITH NET INCOMES:" + month + ", " + netIncome);
 
+            }
+        }
+        else {
+            xValues.add(Util.getCurrentMonth());
+            yValues.add(new Entry(Float.parseFloat("0"), 0));
         }
 
         LineDataSet dataSet = prepareLineDataSet(yValues);

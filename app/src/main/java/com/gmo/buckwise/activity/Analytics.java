@@ -6,8 +6,12 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Explode;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,6 +34,7 @@ public class Analytics extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_analytics);
         context = this;
         initializeViews();

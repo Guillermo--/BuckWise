@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Explode;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -71,6 +75,8 @@ public class Dashboard extends AppCompatActivity {
         handleViewExpensesButton();
         setUpNavigationDrawer();
         setTypefaces();
+
+
         //printDatabase();
 
 
@@ -186,7 +192,7 @@ public class Dashboard extends AppCompatActivity {
         averageNetIncome.setText(Util.doubleToCurrency(Double.parseDouble(overviewImpl.calculateAverageNetIncome())));
         lastMonthNetIncome.setText(Util.doubleToCurrency(Double.parseDouble(overviewImpl.calculateNetIncomeLastMonth())));
         bank.setText(Util.doubleToCurrency(Double.parseDouble(overviewImpl.calculateInBank())));
-        
+
         ExpensesImpl expensesImpl = new ExpensesImpl(context);
         expenses.setText(Util.doubleToCurrency(expensesImpl.getTotalExpensesAmount()));
     }

@@ -87,15 +87,19 @@ public class ExpensesTab extends Fragment {
         ArrayList<Entry> yValues = new ArrayList<>();
         int count = 0;
 
-        for(int i = 0; i<monthsWithData.size(); i++){
-            String month = monthsWithData.get(i);
-            String netIncome = expensesImpl.getLatestExpenseTotalForMonth(month);
-            xValues.add(Util.monthNumberToString(month));
-            yValues.add(new Entry(Float.parseFloat(netIncome), count));
-            count++;
-
-            System.out.println("MONTHS WITH EXPENSE TOTALS:" + month +", "+netIncome);
-
+        if(monthsWithData.size() > 0) {
+            for (int i = 0; i < monthsWithData.size(); i++) {
+                String month = monthsWithData.get(i);
+                String netIncome = expensesImpl.getLatestExpenseTotalForMonth(month);
+                xValues.add(Util.monthNumberToString(month));
+                yValues.add(new Entry(Float.parseFloat(netIncome), count));
+                count++;
+                System.out.println("MONTHS WITH EXPENSE TOTALS:" + month + ", " + netIncome);
+            }
+        }
+        else {
+            xValues.add(Util.getCurrentMonth());
+            yValues.add(new Entry(Float.parseFloat("0"), 0));
         }
 
         LineDataSet dataSet = prepareLineDataSet(yValues);
@@ -103,7 +107,6 @@ public class ExpensesTab extends Fragment {
         data.setDrawValues(false);
 
         lineChart.setData(data);
-
     }
 
     private LineData prepareLineData(ArrayList<String> xValues, LineDataSet dataSet) {

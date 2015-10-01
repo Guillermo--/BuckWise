@@ -8,9 +8,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Explode;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -64,6 +68,7 @@ public class Expenses extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_expenses);
         context = this;
         initializeViews();
@@ -77,6 +82,7 @@ public class Expenses extends AppCompatActivity {
         setTypefaces();
         handlePieChart();
         handlePieChartButton();
+
     }
 
     private void handleExpenseList() {
@@ -304,6 +310,7 @@ public class Expenses extends AppCompatActivity {
 
         PieDataSet dataSet = preparePieChartDataSet(yValues);
         PieData data = preparePieChartData(xValues, dataSet);
+        pieChart.setHoleColor(Color.parseColor("#F5F5F5"));
         pieChart.setData(data);
     }
 

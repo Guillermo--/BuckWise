@@ -211,12 +211,16 @@ public class ExpensesImpl {
         ArrayList<String> months = expensesDAO.getPastMonthsWithDataThisYear();
         int sum = 0;
         int averageExpense = 0;
-        for(int i = 0; i<months.size(); i++) {
-            sum += Integer.parseInt(expensesDAO.getLatestExpenseTotalsForMonth(months.get(i)));
-        }
-        averageExpense = sum/ months.size();
-        return String.valueOf(averageExpense);
-    }
 
+        if(months.size() >= 1){
+            for(int i = 0; i<months.size(); i++) {
+                sum += Integer.parseInt(expensesDAO.getLatestExpenseTotalsForMonth(months.get(i)));
+            }
+            averageExpense = sum/ months.size();
+            return String.valueOf(averageExpense);
+        }
+
+        return "0";
+    }
 
 }
