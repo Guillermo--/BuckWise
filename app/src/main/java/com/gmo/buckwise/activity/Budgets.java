@@ -177,30 +177,32 @@ public class Budgets extends ActionBarActivity {
                         getBudgetData();
                         if (inputCategoryStr.isEmpty()) {
                             Toast.makeText(context, "Enter a category.", Toast.LENGTH_SHORT).show();
-                        } else {
+                        }
+                        else {
                             if (inputAmountStr.isEmpty()) {
-                                inputAmountStr = "$0.00";
+                                Toast.makeText(context, "Please enter an amount.", Toast.LENGTH_SHORT).show();
                             }
-                            BudgetsImpl budgetsImpl = new BudgetsImpl(context);
-                            Budget resultBudget = budgetsImpl.createBudget(budget, inputCategoryStr, inputAmountStr);
-                            if (resultBudget == null) {
-                                Toast.makeText(context, "Category already exists. No action taken.", Toast.LENGTH_SHORT).show();
-                                alertDialog.dismiss();
-                            } else {
-                                budget = resultBudget;
-                                setViews();
-                                adapter.refreshListData(getMapForBudgetListAdapter(budget.getCategories(), budget.getAmountsSpent(), budget.getInitialAmounts()));
-                                ((BaseAdapter) budgetList.getAdapter()).notifyDataSetChanged();
-                                setUpProgressBar();
+                            else {
+                                BudgetsImpl budgetsImpl = new BudgetsImpl(context);
+                                Budget resultBudget = budgetsImpl.createBudget(budget, inputCategoryStr, inputAmountStr);
+                                if (resultBudget == null) {
+                                    Toast.makeText(context, "Category already exists. No action taken.", Toast.LENGTH_SHORT).show();
+                                    alertDialog.dismiss();
+                                } else {
+                                    budget = resultBudget;
+                                    setViews();
+                                    adapter.refreshListData(getMapForBudgetListAdapter(budget.getCategories(), budget.getAmountsSpent(), budget.getInitialAmounts()));
+                                    ((BaseAdapter) budgetList.getAdapter()).notifyDataSetChanged();
+                                    setUpProgressBar();
 
-                                ExpensesImpl expensesImpl = new ExpensesImpl(context);
-                                Expense latestExpense = expensesImpl.getLatestExpenses();
-                                latestExpense.setDateCreated(Util.getCurrentDateTime());
-                                expensesImpl.addCategoryAndAmount(latestExpense, inputCategoryStr, "0.00");
-                                handleHelperMessage();
+                                    ExpensesImpl expensesImpl = new ExpensesImpl(context);
+                                    Expense latestExpense = expensesImpl.getLatestExpenses();
+                                    latestExpense.setDateCreated(Util.getCurrentDateTime());
+                                    expensesImpl.addCategoryAndAmount(latestExpense, inputCategoryStr, "0.00");
+                                    handleHelperMessage();
+                                    alertDialog.dismiss();
+                                }
                             }
-
-                            alertDialog.dismiss();
                         }
                     }
                 });
