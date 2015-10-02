@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -245,23 +246,33 @@ public class Expenses extends AppCompatActivity {
             public void onClick(View view) {
                 float offset = (float) expensesList.getMeasuredWidth() * -2;
                 if(expensesList.getVisibility() == View.VISIBLE) {
-                    pieChartButton.setImageResource(R.drawable.ic_format_list_bulleted_grey600_24dp);
-                    expensesList.animate().setDuration(500).translationX(offset).setListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animator) {
-                            addExpenseButton.animate().translationY(addExpenseButton.getHeight() * 2);
-                        }
-                        @Override
-                        public void onAnimationEnd(Animator animator) {
-                            handlePieChart();
-                            pieChartContainer.setVisibility(View.VISIBLE);
-                            expensesList.setVisibility(View.GONE);
-                        }
-                        @Override
-                        public void onAnimationCancel(Animator animator) {}
-                        @Override
-                        public void onAnimationRepeat(Animator animator) {}
-                    });
+                    if(!expense.getExpenseCategories().isEmpty()) {
+                        pieChartButton.setImageResource(R.drawable.ic_format_list_bulleted_grey600_24dp);
+                        expensesList.animate().setDuration(500).translationX(offset).setListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animator) {
+                                addExpenseButton.animate().translationY(addExpenseButton.getHeight() * 2);
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animator) {
+                                handlePieChart();
+                                pieChartContainer.setVisibility(View.VISIBLE);
+                                expensesList.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animator) {
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animator) {
+                            }
+                        });
+                    }
+                    else {
+                        Toast.makeText(context, "No data to show.", Toast.LENGTH_SHORT ).show();
+                    }
                 }
                 else {
                     pieChartButton.setImageResource(R.drawable.ic_chart_arc_grey600_24dp);
@@ -269,7 +280,6 @@ public class Expenses extends AppCompatActivity {
                         @Override
                         public void onAnimationStart(Animator animator) {
                             addExpenseButton.animate().translationY(0);
-                            //pieChart.animateX(1500, Easing.EasingOption.EaseInCirc);
                             pieChartContainer.setVisibility(View.GONE);
                             expensesList.setVisibility(View.VISIBLE);
                         }
