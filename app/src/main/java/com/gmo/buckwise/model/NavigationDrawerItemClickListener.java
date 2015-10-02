@@ -46,9 +46,8 @@ public class NavigationDrawerItemClickListener implements ListView.OnItemClickLi
                     @Override
                     public void run() {
                         Intent intent = new Intent(context, Dashboard.class);
-                        //context.startActivity(intent);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
-                        context.startActivity(intent, options.toBundle());
+                        context.startActivity(intent);
+
                     }
                 }, 300);
             }
