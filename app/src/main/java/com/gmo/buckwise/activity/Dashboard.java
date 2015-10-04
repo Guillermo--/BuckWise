@@ -76,9 +76,7 @@ public class Dashboard extends AppCompatActivity {
         setUpNavigationDrawer();
         setTypefaces();
 
-
         //printDatabase();
-
 
 //        MySQLiteHelper.populateOverviewDataFromFile(context);
 //        MySQLiteHelper.populateExpenseDataFromFile(context);
