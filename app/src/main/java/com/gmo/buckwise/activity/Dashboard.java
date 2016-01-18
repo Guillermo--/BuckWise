@@ -32,8 +32,6 @@ import com.gmo.buckwise.model.Overview;
 import com.gmo.buckwise.model.NavigationDrawerItemClickListener;
 import com.gmo.buckwise.util.Util;
 
-
-
 public class Dashboard extends AppCompatActivity {
     Util util;
     public static Context context;
@@ -61,7 +59,6 @@ public class Dashboard extends AppCompatActivity {
     ListView mDrawerList;
     public static DrawerLayout mDrawerLayout;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +73,7 @@ public class Dashboard extends AppCompatActivity {
         setUpNavigationDrawer();
         setTypefaces();
 
-        //printDatabase();
+        printDatabase();
 
 //        MySQLiteHelper.populateOverviewDataFromFile(context);
 //        MySQLiteHelper.populateExpenseDataFromFile(context);
@@ -191,8 +188,6 @@ public class Dashboard extends AppCompatActivity {
         lastMonthNetIncome.setText(Util.doubleToCurrency(Double.parseDouble(overviewImpl.calculateNetIncomeLastMonth())));
         bank.setText(Util.doubleToCurrency(Double.parseDouble(overviewImpl.calculateInBank())));
 
-        ExpensesImpl expensesImpl = new ExpensesImpl(context);
-        expenses.setText(Util.doubleToCurrency(expensesImpl.getTotalExpensesAmount()));
     }
 
     public void handleAddIncomeButton() {
@@ -272,5 +267,7 @@ public class Dashboard extends AppCompatActivity {
         BudgetsDAO budgetsDAO = new BudgetsDAO(context);
         budgetsDAO.printDatabase(MySQLiteHelper.TABLE_BUDGETS);
     }
+
+
 }
 
