@@ -23,6 +23,7 @@ public class Expense {
     public void setExpenseTotal(double expenseTotal) {
         this.expenseTotal = expenseTotal;
     }
+
     public Map<String, Double> getExpenseCategoryAndAmount() {
         return expenseCategoryAndAmount;
     }

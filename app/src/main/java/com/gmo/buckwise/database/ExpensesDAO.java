@@ -11,6 +11,7 @@ import com.gmo.buckwise.util.Util;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -42,15 +43,46 @@ public class ExpensesDAO {
             e.printStackTrace();
         }
         Expense latestExpense = new Expense();
+
+        String latestDate = getLatestDate();
+        int latestMonth = Integer.parseInt(Arrays.asList(latestDate.split("-")).get(1));
+        int latestYear = Integer.parseInt(Arrays.asList(latestDate.split("-")).get(0));
+        int currentMonth = Integer.parseInt(Arrays.asList(Util.getCurrentDateTime().split("-")).get(1));
+        int currentYear = Integer.parseInt(Arrays.asList(Util.getCurrentDateTime().split("-")).get(0));
+
         String sql = "SELECT * FROM expenses ORDER BY date DESC LIMIT 1";
         Cursor cursor = database.rawQuery(sql, null);
-        if(cursor != null && cursor.moveToFirst()){
-            latestExpense.setExpenseTotal(cursor.getDouble(cursor.getColumnIndex("expense_total")));
-            latestExpense.setExpenseCategory(cursor.getString(cursor.getColumnIndex("expense_categories")));
-            latestExpense.setExpenseAmount(cursor.getString(cursor.getColumnIndex("expense_amounts")));
-            latestExpense.setExpenseAverage(cursor.getDouble(cursor.getColumnIndex("expense_average")));
-            latestExpense.setExpenseLastMonth(cursor.getDouble(cursor.getColumnIndex("expense_last_month")));
+
+        if(currentMonth > latestMonth) {
+            latestExpense.setExpenseTotal(0);
+            latestExpense.setExpenseCategory("");
+            latestExpense.setExpenseAmount("");
+            if(cursor != null && cursor.moveToFirst()) {
+                latestExpense.setExpenseAverage(cursor.getDouble(cursor.getColumnIndex("expense_average")));
+                latestExpense.setExpenseLastMonth(cursor.getDouble(cursor.getColumnIndex("expense_last_month")));
+            }
         }
+        else if (currentMonth < latestMonth){
+            if(currentYear > latestYear) {
+                latestExpense.setExpenseTotal(0);
+                latestExpense.setExpenseCategory("");
+                latestExpense.setExpenseAmount("");
+                if(cursor != null && cursor.moveToFirst()) {
+                    latestExpense.setExpenseAverage(cursor.getDouble(cursor.getColumnIndex("expense_average")));
+                    latestExpense.setExpenseLastMonth(cursor.getDouble(cursor.getColumnIndex("expense_last_month")));
+                }
+            }
+        }
+        else if(currentMonth == latestMonth) {
+            if(cursor != null && cursor.moveToFirst()){
+                latestExpense.setExpenseTotal(cursor.getDouble(cursor.getColumnIndex("expense_total")));
+                latestExpense.setExpenseCategory(cursor.getString(cursor.getColumnIndex("expense_categories")));
+                latestExpense.setExpenseAmount(cursor.getString(cursor.getColumnIndex("expense_amounts")));
+                latestExpense.setExpenseAverage(cursor.getDouble(cursor.getColumnIndex("expense_average")));
+                latestExpense.setExpenseLastMonth(cursor.getDouble(cursor.getColumnIndex("expense_last_month")));
+            }
+        }
+
         close();
         return latestExpense;
     }
