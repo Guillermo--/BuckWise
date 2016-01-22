@@ -144,58 +144,55 @@ public class OverviewDAO {
 
         Overview latestOverview = new Overview();
         String latestDate = getLatestDate();
-        int latestMonth = Integer.parseInt(Arrays.asList(latestDate.split("-")).get(1));
-        int latestYear = Integer.parseInt(Arrays.asList(latestDate.split("-")).get(0));
-        int currentMonth = Integer.parseInt(Arrays.asList(Util.getCurrentDateTime().split("-")).get(1));
-        int currentYear = Integer.parseInt(Arrays.asList(Util.getCurrentDateTime().split("-")).get(0));
 
-        Log.d("current month: ", String.valueOf(currentMonth));
-        Log.d("latest month: ", String.valueOf(latestMonth));
-        Log.d("current year: ", String.valueOf(currentYear));
-        Log.d("latest year: ", String.valueOf(latestYear));
+        if(latestDate != null) {
+            int latestMonth = Integer.parseInt(Arrays.asList(latestDate.split("-")).get(1));
+            int latestYear = Integer.parseInt(Arrays.asList(latestDate.split("-")).get(0));
+            int currentMonth = Integer.parseInt(Arrays.asList(Util.getCurrentDateTime().split("-")).get(1));
+            int currentYear = Integer.parseInt(Arrays.asList(Util.getCurrentDateTime().split("-")).get(0));
 
-        String sql = "SELECT * FROM overview ORDER BY date DESC LIMIT 1";
-        Cursor cursor = database.rawQuery(sql, null);
-        ExpensesImpl expensesImpl = new ExpensesImpl(Dashboard.context);
+            String sql = "SELECT * FROM overview ORDER BY date DESC LIMIT 1";
+            Cursor cursor = database.rawQuery(sql, null);
+            ExpensesImpl expensesImpl = new ExpensesImpl(Dashboard.context);
 
-        if((currentMonth > latestMonth)) {
-            //new month, reset
-
-            latestOverview.setNetIncome(0);
-            latestOverview.setIncome(0);
-            latestOverview.setExpenses(0);
-            latestOverview.setDateCreated(Util.getCurrentDateTime());
-            if(cursor != null && cursor.moveToFirst()) {
-                latestOverview.setBank(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_BANK)));
-                latestOverview.setId(cursor.getColumnIndex(MySQLiteHelper.COLUMN_ID) + 1);
-                latestOverview.setAverageNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_AVERAGE_NET_INCOME)));
-                latestOverview.setLastMonthNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_LAST_MONTH_NET_INCOME)));
-            }
-
-        } else if (currentMonth < latestMonth){
-            if(currentYear > latestYear) {
-                //new year, reset
+            if ((currentMonth > latestMonth)) {
+                //new month, reset
                 latestOverview.setNetIncome(0);
                 latestOverview.setIncome(0);
                 latestOverview.setExpenses(0);
                 latestOverview.setDateCreated(Util.getCurrentDateTime());
-                if(cursor != null && cursor.moveToFirst()) {
+                if (cursor != null && cursor.moveToFirst()) {
                     latestOverview.setBank(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_BANK)));
                     latestOverview.setId(cursor.getColumnIndex(MySQLiteHelper.COLUMN_ID) + 1);
                     latestOverview.setAverageNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_AVERAGE_NET_INCOME)));
                     latestOverview.setLastMonthNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_LAST_MONTH_NET_INCOME)));
                 }
-            }
-        } else if (currentMonth == latestMonth) {
-            if (cursor != null && cursor.moveToFirst()) {
-                latestOverview.setNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_NET_INCOME)));
-                latestOverview.setIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_INCOME)));
-                latestOverview.setBank(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_BANK)));
-                latestOverview.setExpenses(expensesImpl.getTotalExpensesAmount());
-                latestOverview.setDateCreated(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_DATE)));
-                latestOverview.setId(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_ID)));
-                latestOverview.setAverageNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_AVERAGE_NET_INCOME)));
-                latestOverview.setLastMonthNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_LAST_MONTH_NET_INCOME)));
+
+            } else if (currentMonth < latestMonth) {
+                if (currentYear > latestYear) {
+                    //new year, reset
+                    latestOverview.setNetIncome(0);
+                    latestOverview.setIncome(0);
+                    latestOverview.setExpenses(0);
+                    latestOverview.setDateCreated(Util.getCurrentDateTime());
+                    if (cursor != null && cursor.moveToFirst()) {
+                        latestOverview.setBank(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_BANK)));
+                        latestOverview.setId(cursor.getColumnIndex(MySQLiteHelper.COLUMN_ID) + 1);
+                        latestOverview.setAverageNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_AVERAGE_NET_INCOME)));
+                        latestOverview.setLastMonthNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_LAST_MONTH_NET_INCOME)));
+                    }
+                }
+            } else if (currentMonth == latestMonth) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    latestOverview.setNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_NET_INCOME)));
+                    latestOverview.setIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_INCOME)));
+                    latestOverview.setBank(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_BANK)));
+                    latestOverview.setExpenses(expensesImpl.getTotalExpensesAmount(Util.getCurrentDateTime()));
+                    latestOverview.setDateCreated(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_DATE)));
+                    latestOverview.setId(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_ID)));
+                    latestOverview.setAverageNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_AVERAGE_NET_INCOME)));
+                    latestOverview.setLastMonthNetIncome(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_LAST_MONTH_NET_INCOME)));
+                }
             }
         }
         close();

@@ -37,7 +37,7 @@ public class OverviewImpl extends Overview {
         ExpensesImpl expensesImpl = new ExpensesImpl(context);
 
         overview.setDateCreated(datetime);
-        overview.setNetIncome(calculateNetIncome(overview.getIncome(), expensesImpl.getTotalExpensesAmount()));
+        overview.setNetIncome(calculateNetIncome(overview.getIncome(), expensesImpl.getTotalExpensesAmount(datetime)));
         overviewDao.processAdditionOfIncome(overview);
         return overview;
     }

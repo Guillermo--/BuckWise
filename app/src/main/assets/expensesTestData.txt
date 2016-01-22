@@ -1,4 +1,4 @@
-2015-08-04;1800;Trip,Food,Rent,Loans;250,400,900,0.00
+2015-01-21;1800;Trip,Food,Rent,Loans;250,400,900,0.00
 2015-08-05;1300;Trip,Food,Rent,Loans;250,400,900,0.00
 2015-08-06;1800;Trip,Food,Rent,Loans;250,400,900,0.00
 2015-07-15;1500;Trip,Food,Rent,Loans;250,400,900,0.00

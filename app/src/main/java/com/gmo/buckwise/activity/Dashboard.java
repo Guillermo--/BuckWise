@@ -75,9 +75,9 @@ public class Dashboard extends AppCompatActivity {
 
         printDatabase();
 
-//        MySQLiteHelper.populateOverviewDataFromFile(context);
-//        MySQLiteHelper.populateExpenseDataFromFile(context);
-//        MySQLiteHelper.populateBudgetDataFromFile(context);
+        //MySQLiteHelper.populateOverviewDataFromFile(context);
+        //MySQLiteHelper.populateExpenseDataFromFile(context);
+        //MySQLiteHelper.populateBudgetDataFromFile(context);
     }
 
     @Override
