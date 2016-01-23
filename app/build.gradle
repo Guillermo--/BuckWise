@@ -40,6 +40,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:2.4'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.0'
-
+    compile 'com.intuit.sdp:sdp-android:1.0.2'
 }
 
