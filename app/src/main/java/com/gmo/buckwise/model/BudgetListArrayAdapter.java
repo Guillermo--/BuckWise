@@ -91,7 +91,6 @@ public class BudgetListArrayAdapter extends BaseAdapter{
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         String rowName = ((TextView) row.findViewById(R.id.budget_list_row_category)).getText().toString();
-                        String rowInitialAmount = ((TextView)row.findViewById(R.id.budget_list_row_initialAmount)).getText().toString();
                         String rowCurrentAmountSpent = ((TextView)row.findViewById(R.id.budget_list_row_actualAmount)).getText().toString();
 
                         if (menuItem.getTitle().equals("Log Expense")) {
