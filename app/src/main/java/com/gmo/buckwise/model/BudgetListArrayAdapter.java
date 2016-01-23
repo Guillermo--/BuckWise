@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gmo.buckwise.R;
 import com.gmo.buckwise.activity.Budgets;
@@ -95,12 +96,12 @@ public class BudgetListArrayAdapter extends BaseAdapter{
 
                         if (menuItem.getTitle().equals("Log Expense")) {
                             handleAddExpense(rowName, rowCurrentAmountSpent);
-                        }
-                        else if (menuItem.getTitle().equals("Edit Budget")){
+                        } else if (menuItem.getTitle().equals("Edit Budget")){
                             handleEditBudget(rowName, rowCurrentAmountSpent);
-                        }
-                        else if (menuItem.getTitle().equals("Delete")){
+                        } else if (menuItem.getTitle().equals("Delete")){
                             handleDeleteBudget(rowName);
+                        } else if (menuItem.getTitle().equals("Undo")) {
+                            Toast.makeText(context, "Feature not yet available.", Toast.LENGTH_SHORT).show();
                         }
                         return true;
                     }

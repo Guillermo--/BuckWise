@@ -41,7 +41,6 @@ public class Analytics extends AppCompatActivity {
         setUpNavigationDrawer();
         setTypeFaces();
 
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.addTab(tabLayout.newTab().setText("Net Income"));
         tabLayout.addTab(tabLayout.newTab().setText("Expenses"));
@@ -92,7 +91,7 @@ public class Analytics extends AppCompatActivity {
     }
 
     private void setUpNavigationDrawer() {
-        String[] values = new String[] {"Overview", "Expenses", "Budgets", "Analytics", "Settings"};
+        String[] values = new String[] {"Overview", "Expenses", "Budgets", "Analytics"};
         NavigationDrawerArrayAdapter adapter = new NavigationDrawerArrayAdapter(this, values);
         navigationDrawerItems = (ListView)findViewById(R.id.navigationDrawer_items);
         navigationDrawerItems.setAdapter(adapter);

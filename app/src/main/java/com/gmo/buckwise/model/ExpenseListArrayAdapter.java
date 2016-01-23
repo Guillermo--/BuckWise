@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gmo.buckwise.R;
 import com.gmo.buckwise.activity.Dashboard;
@@ -94,6 +95,8 @@ public class ExpenseListArrayAdapter extends BaseAdapter {
                             handleEditExpense(rowName, rowAmount);
                         } else if (menuItem.getTitle().equals("Delete")) {
                             handleDeleteExpense(rowName, rowAmount);
+                        } else if (menuItem.getTitle().equals("Undo")) {
+                            Toast.makeText(context, "Feature not yet available.", Toast.LENGTH_SHORT).show();
                         }
                         return true;
                     }

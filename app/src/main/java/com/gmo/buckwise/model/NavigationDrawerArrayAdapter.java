@@ -51,9 +51,9 @@ public class NavigationDrawerArrayAdapter extends ArrayAdapter<String> {
         if (listItem.equals("Budgets")) {
             imageView.setImageResource(R.drawable.ic_clipboard_text_grey600_24dp);
         }
-        if (listItem.equals("Settings")) {
+/*        if (listItem.equals("Settings")) {
             imageView.setImageResource(R.drawable.ic_settings_grey600_24dp);
-        }
+        }*/
         if(listItem.equals("Analytics")) {
             imageView.setImageResource(R.drawable.ic_chart_bar_grey600_24dp);
         }

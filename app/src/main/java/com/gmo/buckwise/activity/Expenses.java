@@ -167,7 +167,7 @@ public class Expenses extends AppCompatActivity {
     }
 
     private void setUpNavigationDrawer() {
-        String[] values = new String[] {"Overview", "Expenses", "Budgets", "Analytics", "Settings"};
+        String[] values = new String[] {"Overview", "Expenses", "Budgets", "Analytics"};
         NavigationDrawerArrayAdapter adapter = new NavigationDrawerArrayAdapter(this, values);
         navigationDrawerItems = (ListView)findViewById(R.id.navigationDrawer_items);
         navigationDrawerItems.setAdapter(adapter);
